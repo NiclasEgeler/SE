@@ -1,6 +1,6 @@
 package de.htwg.se.minesweeper.model
 
-class Cell() {
-    
+case class Cell() {
+    var value: Int = 0;  
     
 }

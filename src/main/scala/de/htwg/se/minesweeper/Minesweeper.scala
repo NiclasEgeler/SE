@@ -2,13 +2,14 @@ package de.htwg.se.minesweeper
 
 import de.htwg.se.minesweeper.model.Grid;
 import de.htwg.se.minesweeper.views.tui.Tui;
+import de.htwg.se.minesweeper.model.Difficulty
 
-object Minesweeper2 {
-  var tui = new Tui(new Grid())
+object Minesweeper {
+  var tui = new Tui(new Grid(3,2,1))
   
 
    def main(args: Array[String]) = {
-    println("Hello world")
+    println("Welcome to Minesweeper")
     tui.test()
   }
 }
