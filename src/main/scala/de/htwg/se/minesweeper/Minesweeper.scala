@@ -5,12 +5,12 @@ import de.htwg.se.minesweeper.views.tui.Tui;
 import de.htwg.se.minesweeper.model.Difficulty
 
 object Minesweeper {
-  var tui = new Tui(new Grid(3,2,1))
+  var tui = new Tui(new Grid(Difficulty.Easy))
   
 
    def main(args: Array[String]) = {
     println("Welcome to Minesweeper")
-    tui.test()
+    tui.run()
   }
 }
 
