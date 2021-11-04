@@ -1,7 +1,7 @@
-println(grid(2, 2))
-
 def top() = "┼" + "┤" + "└" + "┘" + "├" + "┐" + "┌" + "─" + "┴" + "┬"
 
+def horizontalLine()              = "─" * 3
+def newLine() = "\n"
 def topLeft()   = "╭" + horizontalLine()
 def topCenter() = "┬" + horizontalLine()
 def topRight()  = "╮" + newLine()
@@ -14,9 +14,7 @@ def bottomLeft()   = "╰" + horizontalLine()
 def bottomCenter() = "┴" + horizontalLine()
 def bottomRight()  = "╯" + newLine()
 
-def newLine() = "\n"
 
-def horizontalLine()              = "─" * 3
 def verticalLines(width: Int = 9) = ("│" + " " * 3) * (width + 1) + newLine()
 
 def topRow(width: Int = 9) =
@@ -27,3 +25,5 @@ def bottomRow(width: Int = 9) = bottomLeft() + bottomCenter() * (width - 1) + bo
 
 def grid(width: Int = 9, height: Int = 9) =
     topRow(width) + centerRow(width) * (height - 1) + bottomRow(width)
+
+println(grid(3, 3))
