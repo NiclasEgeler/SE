@@ -5,11 +5,13 @@ import org.scalatest.matchers.should.Matchers._
 import de.htwg.se.minesweeper.model.Grid
 import de.htwg.se.minesweeper.views.tui.Tui
 import de.htwg.se.minesweeper.model.Difficulty
+import de.htwg.se.minesweeper.controller.Controller
 
 val eol = sys.props("line.separator")
 
 class TuiSpec extends AnyWordSpec {
-    val tui = new Tui(new Grid(Vector.tabulate(9, 9) { (row, col) => new Cell(0) }))
+    var controller = new Controller(new Grid(9, 9))
+    val tui        = new Tui(controller)
 
     "Tui" should {
         "have a xAxis          1   2   3   4   5   6   7   8   9" in {
@@ -20,7 +22,9 @@ class TuiSpec extends AnyWordSpec {
         }
 
         "have vertical lines │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ 1" in {
-            tui.verticalLines() should be("│ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ 1" + eol)
+            tui.verticalLines(controller.getGrid) should be(
+              "│ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ 1" + eol
+            )
         }
 
         "have a centerBar    ├───┼───┼───┼───┼───┼───┼───┼───┼───┤" in {
@@ -41,7 +45,7 @@ class TuiSpec extends AnyWordSpec {
         }
 
         "have a scaleable verticaleLines" in {
-            tui.verticalLines(2) should be("│ ? │ ? │ 1" + eol)
+            tui.verticalLines(new Grid(2, 2), 0) should be("│ ? │ ? │ 1" + eol)
         }
 
         "have a scaleable centerBar" in {
@@ -53,7 +57,7 @@ class TuiSpec extends AnyWordSpec {
         }
 
         "have a scaleable grid" in {
-            tui.grid(2, 2) should be(
+            tui.grid(new Grid(2, 2)) should be(
               "  1   2   " + eol + "╭───┬───╮" + eol + "│ ? │ ? │ 1" + eol + "├───┼───┤" + eol + "│ ? │ ? │ 2" + eol + "╰───┴───╯" + eol
             )
         }

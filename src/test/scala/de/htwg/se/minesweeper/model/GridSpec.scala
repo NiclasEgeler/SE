@@ -9,19 +9,14 @@ class GridSpec extends AnyWordSpec {
     "A grid contains a two-dimentional Vector of Cells. A Grid" when {
         "empty " should {
             "be created with parameters" in {
-                val grid = new Grid(4, 7, 5)
-                grid.getWidth() should be(7)
-                grid.getHeight() should be(4)
-            }
-            "create with difficulty" in {
-                val grid = new Grid(Difficulty.Easy)
-                grid.getWidth() should be(9)
-                grid.getHeight() should be(9)
+                val grid = new Grid(4, 7)
+                grid.getWidth should be(7)
+                grid.getHeight should be(4)
             }
             "create Vector" in {
                 val grid = new Grid(Vector.tabulate(9, 9) { (row, col) => new Cell(0) })
-                grid.getWidth() should be(9)
-                grid.getHeight() should be(9)
+                grid.getWidth should be(9)
+                grid.getHeight should be(9)
             }
         }
         "filled" should {

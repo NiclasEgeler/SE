@@ -4,44 +4,42 @@ import de.htwg.se.minesweeper.model.Grid;
 import de.htwg.se.minesweeper.model.Cell;
 import scala.io.StdIn.readLine
 import scala.util.matching.Regex
+import de.htwg.se.minesweeper.util.IObserver
+import de.htwg.se.minesweeper.controller.IController
 
-class Tui(var grid: Grid) {
-    val eol            = sys.props("line.separator")
-    val pattern: Regex = "([mfudlr]) ([0-9]*) ([0-9]*)".r
-    def printGrid(): Unit = {
-        println(
-          grid(grid.getWidth(), grid.getHeight())
-        )
+class Tui(var controller: IController) extends IObserver {
+
+    val eol = sys.props("line.separator")
+    controller.add(this)
+
+    override def update: Unit = {
+        println(grid(controller.getGrid))
     }
 
-    def parseInput(input: String): Unit = {}
-
     def run(): Unit = {
-        // print("\u001b[2J")
-        printGrid()
-        //grid.setCell(1, 0, 2)
         val input = readLine()
         input match
             case "q" | "quit" =>
             case _ => {
                 input match
                     case "h" | "help" => println("HELP")
-                    case s"o $x $y"   => grid = openCell(x.toInt - 1, y.toInt - 1)
-                    case s"f $x $y"   => grid = flagCell(x.toInt - 1, y.toInt - 1)
+                    case s"o $x $y"   => controller.openCell(x.toInt - 1, y.toInt - 1)
+                    case "open"       => controller.openGrid
+                    case s"f $x $y"   => controller.flagCell(x.toInt - 1, y.toInt - 1)
                     case _            => println("YIKES DOG")
-                println(grid)
                 run()
             }
 
     }
 
-    def openCell(x: Int, y: Int): Grid =
-        grid.setCell(x, y, grid.getCell(x, y).setHidden(false))
+    // def openCell(x: Int, y: Int) =
+    //     // grid.setCell(x, y, grid.getCell(x, y).setHidden(false))
 
-    def flagCell(x: Int, y: Int): Grid = {
-        var cell = grid.getCell(x.toInt, y.toInt);
-        grid.setCell(x, y, cell.setFlag(!cell.isFlagged))
-    }
+    // def flagCell(x: Int, y: Int) = {
+
+    //     // var cell = grid.getCell(x.toInt, y.toInt);
+    //     // grid.setCell(x, y, cell.setFlag(!cell.isFlagged))
+    // }
 
     def printCell(cell: Cell): String = {
         if (cell.isFlagged) {
@@ -50,7 +48,9 @@ class Tui(var grid: Grid) {
         if (cell.isHidden) {
             return "?"
         }
-        return if (cell.value > 0) cell.value.toString() else " "
+        if (cell.isMine)
+            return "#"
+        return if (cell.value > 0) then cell.value.toString() else " "
     }
 
     def topLeft()   = "╭" + horizontalLine()
@@ -67,9 +67,9 @@ class Tui(var grid: Grid) {
 
     def horizontalLine() = "─" * 3
     // def verticalLines(width: Int = 9) = ("│" + " " * 3) * width + "│" + eol
-    def verticalLines(width: Int = 9, row: Int=0): String = {
+    def verticalLines(grid: Grid, row: Int = 0): String = {
         var vLine: String = ""
-        for (a <- 0 until width) {
+        for (a <- 0 until grid.getWidth) {
             vLine = vLine + "│ " + printCell(grid.getCell(row, a)) + " "
         }
         return vLine + "│ " + (row + 1) + eol;
@@ -82,18 +82,20 @@ class Tui(var grid: Grid) {
         axis = axis + eol
         return axis
     }
-    def grid(width: Int = 9, height: Int = 9): String = {
-        var gridString = ""
-        gridString += xAxis(width) + topBar(width)
-        for (a <- 0 until height) {
-            if (a == 0) {
-                gridString = gridString + verticalLines(width, 0)
-            } else {
-                gridString = gridString + centerRow(width, a)
-            }
-        }
-        return gridString + bottomBar(width)
+    def grid(grid: Grid): String = {
+        var width  = grid.getWidth
+        var height = grid.getHeight
+
+        return xAxis(width)
+            + topBar(width)
+            + (for (i: Int <- 0 until width)
+                yield valueBar(i, width, grid))
+                .foldLeft("") { (b, a) => b + a }
+            + bottomBar(width)
     }
+
+    def valueBar(row: Int, width: Int, grid: Grid): String =
+        if row == 0 then verticalLines(grid, 0) else centerRow(grid, row)
 
     // def grid(width: Int = 9, height: Int = 9) =
     //     xAxis(width) + topBar(width) + verticalLines(width) + centerRow(width) * (height - 1) + bottomBar(width)
@@ -101,8 +103,11 @@ class Tui(var grid: Grid) {
         centerLeft() + centerCenter() * (width - 1) + centerRight()
     def topBar(width: Int = 9) =
         topLeft() + topCenter() * (width - 1) + topRight()
-    def centerRow(width: Int = 9, row: Int) =
-        centerLeft() + centerCenter() * (width - 1) + centerRight() + verticalLines(width, row)
+    def centerRow(grid: Grid, row: Int) =
+        centerLeft() + centerCenter() * (grid.getWidth - 1) + centerRight() + verticalLines(
+          grid,
+          row
+        )
     def bottomBar(width: Int = 9) = bottomLeft() + bottomCenter() * (width - 1) + bottomRight()
 
 }

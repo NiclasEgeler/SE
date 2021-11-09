@@ -1,12 +1,11 @@
 package de.htwg.se.minesweeper.model
-import de.htwg.se.minesweeper.util.MineGenerator
 
 case class Grid(grid: Vector[Vector[Cell]]) {
-    def this(rows: Int, columns: Int, mines: Int) =
-        this(MineGenerator.generate(rows, columns, mines))
+    def this(rows: Int, columns: Int) =
+        this(Vector.tabulate(rows, columns) { (row, col) => new Cell(0) })
 
-    def this(difficulty: Difficulty) =
-        this(difficulty.rows, difficulty.columns, difficulty.numMines)
+    // def this(difficulty: Difficulty) =
+    //     this(difficulty.rows, difficulty.columns, difficulty.numMines)
 
     def setCell(row: Int, col: Int, cell: Cell): Grid = {
         return copy(grid.updated(row, grid(row).updated(col, cell)))
@@ -16,11 +15,9 @@ case class Grid(grid: Vector[Vector[Cell]]) {
         return grid(row)(col)
     }
 
-    def getWidth(): Int = {
-        return grid(0).size
-    }
+    def getRow(row: Int): Vector[Cell] = grid(row)
 
-    def getHeight(): Int = {
-        return grid.size
-    }
+    def getWidth: Int = grid(0).size 
+
+    def getHeight: Int = grid.size
 }
