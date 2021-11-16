@@ -1,9 +1,15 @@
 .vscode
 .metals
 .bloop
-project
-project/*
+
+project/metals.sbt
+
+# sbt
+project/project/
+project/target/
+target/
 target
+
 .ammonite
 .bsp
 

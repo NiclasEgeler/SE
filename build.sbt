@@ -15,3 +15,4 @@ lazy val root = project
     javacOptions ++= Seq("-encoding", "UTF-8")
 
   )
+  
