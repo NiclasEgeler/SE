@@ -1,6 +1,6 @@
 ## sbt project compiled with Scala 3
 
-![Scala CI](https://github.com/github/docs/actions/workflows/scala.yml/badge.svg)
+![Scala CI](https://github.com/NiclasEgeler/SE/actions/workflows/scala.yml/badge.svg)
 
 ### Usage
 
