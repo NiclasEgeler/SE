@@ -1,3 +1,5 @@
+# SE - Minesweeper
+
 ## sbt project compiled with Scala 3
 
 ![Scala CI](https://github.com/NiclasEgeler/SE/actions/workflows/scala.yml/badge.svg)
