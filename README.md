@@ -2,7 +2,7 @@
 
 ## sbt project compiled with Scala 3
 
-![Scala CI](https://github.com/NiclasEgeler/SE/actions/workflows/scala.yml/badge.svg)
+![Scala CI](https://github.com/NiclasEgeler/SE/actions/workflows/scala.yml/badge.svg) [![codecov](https://codecov.io/gh/NiclasEgeler/SE/branch/main/graph/badge.svg?token=CRXUW4TS6Q)](https://codecov.io/gh/NiclasEgeler/SE)
 
 ### Usage
 
