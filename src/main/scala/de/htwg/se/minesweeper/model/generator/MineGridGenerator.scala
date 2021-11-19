@@ -1,20 +1,17 @@
 package de.htwg.se.minesweeper.model
+import de.htwg.se.minesweeper.model._
 
-import de.htwg.se.minesweeper.model.Cell
-import de.htwg.se.minesweeper.model.Grid
-import scala.util.Random
-import de.htwg.se.minesweeper.model.Difficulty
-import de.htwg.se.minesweeper.model.Directions
+class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficultyProvider)
+    extends IGenerator {
 
-object MineGridGenerator {
+    def generate() : Grid = generate(difficulty.get);
 
-    def generate(difficulty: Difficulty): Grid =
+    private def generate(difficulty: Difficulty): Grid =
         generate(difficulty.rows, difficulty.columns, difficulty.numMines);
 
-    def generate(rows: Int, columns: Int, mines: Int): Grid = {
-        var count  = mines;
-        var random = new Random()
-        var grid   = new Grid(rows, columns)
+    private def generate(rows: Int, columns: Int, mines: Int): Grid = {
+        var count = mines;
+        var grid  = new Grid(rows, columns)
         while (count > 0) {
             var rowIn    = random.between(0, rows)
             var columnIn = random.between(0, columns)

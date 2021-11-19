@@ -1,8 +1,10 @@
 package de.htwg.se.minesweeper.controller
-import de.htwg.se.minesweeper.model.Grid;
+import de.htwg.se.minesweeper.model._
 
-class Controller(var grid: Grid) extends IController {
+// Todo: should get IGenerator
+class Controller(var generator: IGenerator) extends IController {
 
+    var grid = generator.generate()
     def flagCell(row: Int, column: Int): Unit = {
         var cell = grid.getCell(row, column)
         if(!cell.isHidden)

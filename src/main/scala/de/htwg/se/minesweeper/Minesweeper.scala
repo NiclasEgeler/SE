@@ -1,14 +1,14 @@
 package de.htwg.se.minesweeper
 
-import de.htwg.se.minesweeper.views.tui.Tui
-import de.htwg.se.minesweeper.model.Difficulty
-import de.htwg.se.minesweeper.model.MineGridGenerator
-import de.htwg.se.minesweeper.controller.Controller
+import de.htwg.se.minesweeper.views.tui._
+import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.controller._
 
 
 object Minesweeper {
   
-  var controller = new Controller(MineGridGenerator.generate(Difficulty.Easy))
+  var generator = new MineGridGenerator(new RandomProvider(),new DifficultyProvider(Difficulty.Easy));
+  var controller = new Controller(generator)
   var tui = new Tui(controller)
   
 
