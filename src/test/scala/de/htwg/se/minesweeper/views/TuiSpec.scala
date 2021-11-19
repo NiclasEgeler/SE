@@ -4,8 +4,12 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
 import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.difficulty._
+import de.htwg.se.minesweeper.model.generator._
+import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.views.tui._
 import de.htwg.se.minesweeper.controller._
+
 
 val eol = sys.props("line.separator")
 

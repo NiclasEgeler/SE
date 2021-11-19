@@ -31,7 +31,7 @@ class GridSpec extends AnyWordSpec {
             }
 
             "get row" in {
-                grid.getRow(0) should be(Vector.tabulate(9)(new Cell(0)))
+                grid.getRow(0) should be(Vector.tabulate(9){(row) => new Cell(0)})
             }
         }
     }
