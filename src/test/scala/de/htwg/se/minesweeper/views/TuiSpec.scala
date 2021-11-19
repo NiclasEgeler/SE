@@ -1,16 +1,17 @@
 package de.htwg.se.minesweeper.views.tui
-import de.htwg.se.minesweeper.model.Cell;
+
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
-import de.htwg.se.minesweeper.model.Grid
-import de.htwg.se.minesweeper.views.tui.Tui
-import de.htwg.se.minesweeper.model.Difficulty
-import de.htwg.se.minesweeper.controller.Controller
+
+import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.views.tui._
+import de.htwg.se.minesweeper.controller._
 
 val eol = sys.props("line.separator")
 
 class TuiSpec extends AnyWordSpec {
-    var controller = new Controller(new Grid(9, 9))
+    var generator = new MineGridGenerator(new MockRandomProvider(),new DifficultyProvider(Difficulty.Easy))
+    var controller = new Controller(generator)
     val tui        = new Tui(controller)
 
     "Tui" should {
