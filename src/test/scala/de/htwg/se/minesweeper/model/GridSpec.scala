@@ -29,6 +29,10 @@ class GridSpec extends AnyWordSpec {
                 val newGrid = grid.setCell(8, 8, new Cell(69, true, false))
                 newGrid.getCell(8, 8) should be(new Cell(69, true, false))
             }
+
+            "get row" in {
+                grid.getRow(0) should be(Vector.tabulate(9)(new Cell(0)))
+            }
         }
     }
 

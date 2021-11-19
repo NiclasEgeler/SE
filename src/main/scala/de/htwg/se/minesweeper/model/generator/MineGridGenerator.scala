@@ -1,5 +1,9 @@
-package de.htwg.se.minesweeper.model
+package de.htwg.se.minesweeper.model.generator
+
 import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.random.IRandomProvider
+import de.htwg.se.minesweeper.model.difficulty.IDifficultyProvider
+import de.htwg.se.minesweeper.model.difficulty.Difficulty
 
 class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficultyProvider)
     extends IGenerator {

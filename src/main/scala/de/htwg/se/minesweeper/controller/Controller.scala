@@ -1,5 +1,7 @@
 package de.htwg.se.minesweeper.controller
+
 import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.generator._
 
 // Todo: should get IGenerator
 class Controller(var generator: IGenerator) extends IController {

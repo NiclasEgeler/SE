@@ -1,4 +1,4 @@
-package de.htwg.se.minesweeper.model
+package de.htwg.se.minesweeper.model.random
 import scala.util.Random
 
 class MockRandomProvider extends IRandomProvider {

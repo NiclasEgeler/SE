@@ -1,5 +1,4 @@
-package de.htwg.se.minesweeper.model
-
+package de.htwg.se.minesweeper.model.difficulty
 
 enum Difficulty(var rows: Int, var columns: Int, var numMines: Int):
     case Easy extends Difficulty(9, 9, 10)

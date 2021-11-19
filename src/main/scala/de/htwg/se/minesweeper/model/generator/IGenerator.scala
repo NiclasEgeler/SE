@@ -1,4 +1,4 @@
-package de.htwg.se.minesweeper.model
+package de.htwg.se.minesweeper.model.generator
 import de.htwg.se.minesweeper.model._
 
 trait IGenerator {
