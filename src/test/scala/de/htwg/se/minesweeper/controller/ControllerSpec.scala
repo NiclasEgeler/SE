@@ -21,6 +21,17 @@ class ControllerSpec extends AnyWordSpec {
             var grid = controller.flagCell(1, 1)
             grid.getCell(1, 1).isFlagged should be(true)
         }
+        "ignore flag when cell is open" in {
+            var grid = controller.flagCell(0, 0)
+            grid.getCell(0, 0).isFlagged should be(false)
+            grid.getCell(0, 0).isHidden should be(false)
+        }
+
+        "ignore open when cell is flagged" in {
+            var grid = controller.openCell(1, 1)
+            grid.getCell(1, 1).isHidden should be(true)
+            grid.getCell(1, 1).isFlagged should be(true)
+        }
 
         "open grid" in {
             var grid = controller.openGrid
