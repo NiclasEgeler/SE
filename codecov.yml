@@ -1,3 +1,4 @@
 ignore:
   - "src/main/scala/testgrid.worksheet.sc"
+  - "src/main/scala/de/htwg/se/minesweeper/util/Observable.scala"
   - "src/main/scala/de/htwg/se/minesweeper/Minesweeper.scala"
