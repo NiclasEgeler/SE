@@ -3,8 +3,8 @@ import de.htwg.se.minesweeper.util.Observable
 import de.htwg.se.minesweeper.model.Grid
 
 trait IController extends Observable{
-    def openCell(row: Int, column: Int): Unit
-    def flagCell(row: Int, column: Int): Unit
-    def openGrid: Unit
+    def openCell(row: Int, column: Int): Grid
+    def flagCell(row: Int, column: Int): Grid
+    def openGrid: Grid
     def getGrid: Grid
 }   
