@@ -20,6 +20,8 @@ class ControllerSpec extends AnyWordSpec {
         "flag cell" in {
             var grid = controller.flagCell(1, 1)
             grid.getCell(1, 1).isFlagged should be(true)
+            grid = controller.flagCell(1, 1)
+            grid.getCell(1, 1).isFlagged should be(false)
         }
         "ignore flag when cell is open" in {
             var grid = controller.flagCell(0, 0)
@@ -28,7 +30,8 @@ class ControllerSpec extends AnyWordSpec {
         }
 
         "ignore open when cell is flagged" in {
-            var grid = controller.openCell(1, 1)
+            var grid = controller.flagCell(1, 1)
+            grid = controller.openCell(1, 1)
             grid.getCell(1, 1).isHidden should be(true)
             grid.getCell(1, 1).isFlagged should be(true)
         }
@@ -43,6 +46,12 @@ class ControllerSpec extends AnyWordSpec {
             var grid = controller.getGrid
             grid.getCell(4, 4).isHidden should be(false)
             grid.getCell(5, 5).isHidden should be(false)
+        }
+
+        "validate coordinates" in {
+            var grid = controller.getGrid
+            controller.validateCoordinates(0,0) should be(true)
+            controller.validateCoordinates(-1,0) should be(false)
         }
     }
 

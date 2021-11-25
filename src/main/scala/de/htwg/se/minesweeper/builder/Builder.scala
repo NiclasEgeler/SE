@@ -8,7 +8,7 @@ import de.htwg.se.minesweeper.model.generator._
 trait IBuilder {
     def difficulty(name: String): IBuilder
     def random(name: String): IBuilder
-    def getResult(): IController
+    def getResult: IController
 }
 
 class ControllerBuilder extends IBuilder {
@@ -36,7 +36,7 @@ class ControllerBuilder extends IBuilder {
         return this
     } 
 
-    def getResult(): IController = {
+    def getResult: IController = {
         return new Controller(new MineGridGenerator(rand, diff))
     }
 }

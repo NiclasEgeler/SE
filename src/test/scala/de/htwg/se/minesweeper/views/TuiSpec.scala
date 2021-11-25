@@ -16,7 +16,7 @@ val eol = sys.props("line.separator")
 
 class TuiSpec extends AnyWordSpec {
     var builder = new ControllerBuilder()
-    var controller = builder.difficulty("easy").random("mock").getResult()
+    var controller = builder.difficulty("easy").random("mock").getResult
     val tui        = new Tui(controller)
 
     "Tui" should {

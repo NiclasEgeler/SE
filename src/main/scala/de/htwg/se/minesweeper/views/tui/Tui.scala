@@ -29,7 +29,6 @@ class Tui(var controller: IController) extends IObserver {
                     case _            => println("YIKES DOG")
                 run()
             }
-
     }
 
     def printCell(cell: Cell): String = {
@@ -69,7 +68,7 @@ class Tui(var controller: IController) extends IObserver {
     def xAxis(width: Int = 9): String = {
         var axis: String = "  "
         for (a <- 1 to width) {
-            axis = axis + a + (" " * 3)
+            axis = axis + a + (" " * (3 - (s"$a").length + 1))
         }
         axis = axis + eol
         return axis
@@ -80,7 +79,7 @@ class Tui(var controller: IController) extends IObserver {
 
         return xAxis(width)
             + topBar(width)
-            + (for (i: Int <- 0 until width)
+            + (for (i: Int <- 0 until height)
                 yield valueBar(i, width, grid))
                 .foldLeft("") { (b, a) => b + a }
             + bottomBar(width)
