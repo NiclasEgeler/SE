@@ -3,29 +3,47 @@ package de.htwg.se.minesweeper.controller
 import de.htwg.se.minesweeper.model._
 import de.htwg.se.minesweeper.model.generator._
 
-// Todo: should get IGenerator
 class Controller(var generator: IGenerator) extends IController {
 
     var grid = generator.generate()
     def flagCell(row: Int, column: Int): Grid = {
         var cell = grid.getCell(row, column)
-        if(!cell.isHidden)
-            return grid
+        if(!cell.isHidden) {
+            notifyObservers
+            return grid            
+        }
         grid = grid.setCell(row, column, cell.setFlag(!cell.isFlagged))
         notifyObservers
         return grid
     }
 
     def openCell(row: Int, column: Int): Grid = {
+        var ret = openCellP(row, column)
+        notifyObservers
+        return ret        
+    }
+
+    def openCellP(row: Int, column: Int): Grid = {
+
         var cell = grid.getCell(row, column)
-        if(cell.isFlagged)
+        if(cell.isFlagged || !cell.isHidden) {
             return grid
-        // todo: If cell value is 0 check all directions open all cells around it
-        grid = grid.setCell(row, column, cell.setHidden(false))
+        }
         if (cell.isMine == true) {
             // todo: Notify of losing game and winning game
         }
-        notifyObservers
+
+        grid = grid.setCell(row, column, cell.setHidden(false))
+
+        if(cell.getValue() != 0)
+            return grid
+
+        for (d <- Directions.values) {
+            var x = d.x+row
+            var y = d.y+column
+            if(validateCoordinates(x, y))
+                openCellP(x, y)
+        }
         return grid
     }
 
@@ -36,6 +54,11 @@ class Controller(var generator: IGenerator) extends IController {
                 grid = grid.setCell(r, c, cell.setHidden(false))
         notifyObservers
         return grid
+    }
+
+    def validateCoordinates(x: Int, y: Int): Boolean = {
+        // todo: Validator?
+        return (x >= 0 && y >= 0 && grid.getHeight > y && grid.getWidth > x)
     }
 
     def getGrid: Grid = grid

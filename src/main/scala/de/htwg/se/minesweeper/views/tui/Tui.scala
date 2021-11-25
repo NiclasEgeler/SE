@@ -32,15 +32,6 @@ class Tui(var controller: IController) extends IObserver {
 
     }
 
-    // def openCell(x: Int, y: Int) =
-    //     // grid.setCell(x, y, grid.getCell(x, y).setHidden(false))
-
-    // def flagCell(x: Int, y: Int) = {
-
-    //     // var cell = grid.getCell(x.toInt, y.toInt);
-    //     // grid.setCell(x, y, cell.setFlag(!cell.isFlagged))
-    // }
-
     def printCell(cell: Cell): String = {
         if (cell.isFlagged) {
             return "⚑"
@@ -66,7 +57,7 @@ class Tui(var controller: IController) extends IObserver {
     def bottomRight()  = "╯" + eol
 
     def horizontalLine() = "─" * 3
-    // def verticalLines(width: Int = 9) = ("│" + " " * 3) * width + "│" + eol
+
     def verticalLines(grid: Grid, row: Int = 0): String = {
         var vLine: String = ""
         for (a <- 0 until grid.getWidth) {
@@ -74,6 +65,7 @@ class Tui(var controller: IController) extends IObserver {
         }
         return vLine + "│ " + (row + 1) + eol;
     }
+
     def xAxis(width: Int = 9): String = {
         var axis: String = "  "
         for (a <- 1 to width) {
@@ -97,8 +89,6 @@ class Tui(var controller: IController) extends IObserver {
     def valueBar(row: Int, width: Int, grid: Grid): String =
         if row == 0 then verticalLines(grid, 0) else centerRow(grid, row)
 
-    // def grid(width: Int = 9, height: Int = 9) =
-    //     xAxis(width) + topBar(width) + verticalLines(width) + centerRow(width) * (height - 1) + bottomBar(width)
     def centerBar(width: Int = 9) =
         centerLeft() + centerCenter() * (width - 1) + centerRight()
     def topBar(width: Int = 9) =

@@ -44,10 +44,10 @@ class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficulty
     private def checkCell(row: Int, column: Int, grid: Grid, d: Directions): Boolean = {
         var x = row + d.x
         var y = column + d.y
+        // todo: Validator?
         if (x >= 0 && y >= 0 && grid.getHeight > y && grid.getWidth > x)
             return grid.getCell(x, y).isMine
         return false
-
     }
 
 }

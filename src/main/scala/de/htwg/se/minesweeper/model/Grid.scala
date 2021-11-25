@@ -1,11 +1,9 @@
 package de.htwg.se.minesweeper.model
 
 case class Grid(grid: Vector[Vector[Cell]]) {
+
     def this(rows: Int, columns: Int) =
         this(Vector.tabulate(rows, columns) { (row, col) => new Cell(0) })
-
-    // def this(difficulty: Difficulty) =
-    //     this(difficulty.rows, difficulty.columns, difficulty.numMines)
 
     def setCell(row: Int, col: Int, cell: Cell): Grid = {
         return copy(grid.updated(row, grid(row).updated(col, cell)))

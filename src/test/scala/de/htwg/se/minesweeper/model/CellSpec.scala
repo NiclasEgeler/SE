@@ -31,7 +31,10 @@ class CellSpec extends AnyWordSpec {
             mine.isMine should be(true)
             cell.isMine should be(false)
         }
-
+        "have a value" in {
+            val cell = new Cell(0)
+            cell.getValue should be(0)
+        }
     }
 }
 
