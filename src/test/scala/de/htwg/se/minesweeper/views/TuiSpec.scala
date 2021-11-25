@@ -9,13 +9,14 @@ import de.htwg.se.minesweeper.model.generator._
 import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.views.tui._
 import de.htwg.se.minesweeper.controller._
+import de.htwg.se.minesweeper.builder._
 
 
 val eol = sys.props("line.separator")
 
 class TuiSpec extends AnyWordSpec {
-    var generator = new MineGridGenerator(new MockRandomProvider(),new DifficultyProvider(Difficulty.Easy))
-    var controller = new Controller(generator)
+    var builder = new ControllerBuilder()
+    var controller = builder.difficulty("easy").random("mock").getResult()
     val tui        = new Tui(controller)
 
     "Tui" should {
