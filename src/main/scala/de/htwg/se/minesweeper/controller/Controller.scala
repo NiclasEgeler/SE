@@ -35,7 +35,7 @@ class Controller(var generator: IGenerator) extends IController {
 
         grid = grid.setCell(row, column, cell.setHidden(false))
 
-        if(cell.getValue() != 0)
+        if(cell.getValue != 0)
             return grid
 
         for (d <- Directions.values) {

@@ -10,5 +10,5 @@ case class Cell(val value: Int, val flag: Boolean, val hidden: Boolean) {
 
     def setHidden(hidden: Boolean): Cell = copy(value, flag, hidden)
     def setFlag(flag: Boolean): Cell     = copy(value, flag, hidden)
-    def getValue(): Int = value
+    def getValue: Int = value
 }
