@@ -67,5 +67,13 @@ class TuiSpec extends AnyWordSpec {
               "  1   2   " + eol + "╭───┬───╮" + eol + "│ ? │ ? │ 1" + eol + "├───┼───┤" + eol + "│ ? │ ? │ 2" + eol + "╰───┴───╯" + eol
             )
         }
+
+        "print cells" in {
+            tui.printCell(new Cell(0,false,true)) should be("?")
+            tui.printCell(new Cell(1,false,false)) should be("1")
+            tui.printCell(new Cell(0,false,false)) should be(" ")
+            tui.printCell(new Cell(0,true,true)) should be("⚑")
+            tui.printCell(new Cell(-1,false,false)) should be("#")
+        }
     }
 }

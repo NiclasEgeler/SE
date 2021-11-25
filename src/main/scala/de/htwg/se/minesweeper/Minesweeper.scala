@@ -7,7 +7,7 @@ import de.htwg.se.minesweeper.builder._
 object Minesweeper {
   
   var builder = new ControllerBuilder()
-  var controller = builder.difficulty("hard").random("random").getResult
+  var controller = builder.difficulty("easy").random("mock").getResult
   var tui = new Tui(controller)
   
 

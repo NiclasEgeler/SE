@@ -17,6 +17,16 @@ class ControllerSpec extends AnyWordSpec {
             grid.getCell(0, 0).isHidden should be(false)
         }
 
+        "open recursive cells" in {
+            var grid = controller.openCellP(0,8)
+            grid.getCell(0,7).isHidden should be(false)
+            grid.getCell(0,8).isHidden should be(false)
+            grid.getCell(1,7).isHidden should be(false)
+            grid.getCell(1,8).isHidden should be(false)
+            grid.getCell(2,7).isHidden should be(false)
+            grid.getCell(2,8).isHidden should be(false)
+        }
+
         "flag cell" in {
             var grid = controller.flagCell(1, 1)
             grid.getCell(1, 1).isFlagged should be(true)
@@ -52,6 +62,9 @@ class ControllerSpec extends AnyWordSpec {
             var grid = controller.getGrid
             controller.validateCoordinates(0,0) should be(true)
             controller.validateCoordinates(-1,0) should be(false)
+            controller.validateCoordinates(0,-1) should be(false)
+            controller.validateCoordinates(9,0) should be(false)
+            controller.validateCoordinates(0,9) should be(false)
         }
     }
 

@@ -29,9 +29,9 @@ class Controller(var generator: IGenerator) extends IController {
         if(cell.isFlagged || !cell.isHidden) {
             return grid
         }
-        if (cell.isMine == true) {
-            // todo: Notify of losing game and winning game
-        }
+        // if (cell.isMine == true) {
+        //     // todo: Notify of losing game and winning game
+        // }
 
         grid = grid.setCell(row, column, cell.setHidden(false))
 
