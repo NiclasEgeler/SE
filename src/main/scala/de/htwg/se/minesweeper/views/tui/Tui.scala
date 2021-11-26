@@ -1,7 +1,7 @@
 package de.htwg.se.minesweeper.views.tui
 
 import de.htwg.se.minesweeper.model.Grid;
-import de.htwg.se.minesweeper.model.Cell;
+import de.htwg.se.minesweeper.model.cell._;
 import scala.io.StdIn.readLine
 import scala.util.matching.Regex
 import de.htwg.se.minesweeper.util.IObserver
@@ -31,7 +31,7 @@ class Tui(var controller: IController) extends IObserver {
             }
     }
 
-    def printCell(cell: Cell): String = {
+    def printCell(cell: ICell): String = {
         if (cell.isFlagged) {
             return "⚑"
         }
@@ -40,7 +40,7 @@ class Tui(var controller: IController) extends IObserver {
         }
         if (cell.isMine)
             return "#"
-        return if (cell.value > 0) then cell.value.toString() else " "
+        return if (cell.getValue > 0) then cell.getValue.toString() else " "
     }
 
     def topLeft()   = "╭" + horizontalLine()

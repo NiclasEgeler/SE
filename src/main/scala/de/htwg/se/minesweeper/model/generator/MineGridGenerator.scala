@@ -1,9 +1,11 @@
 package de.htwg.se.minesweeper.model.generator
 
+import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model._
 import de.htwg.se.minesweeper.model.random.IRandomProvider
 import de.htwg.se.minesweeper.model.difficulty.IDifficultyProvider
 import de.htwg.se.minesweeper.model.difficulty.Difficulty
+import de.htwg.se.minesweeper.model.cell.Cell
 
 class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficultyProvider)
     extends IGenerator {
@@ -20,14 +22,14 @@ class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficulty
             var rowIn    = random.between(0, rows)
             var columnIn = random.between(0, columns)
             if ((grid.getCell(rowIn, columnIn)).isMine != true) {
-                grid = grid.setCell(rowIn, columnIn, new Cell(-1, false, true))
+                grid = grid.setCell(rowIn, columnIn, CellFactory("hidden",-1))
                 count -= 1;
             }
         }
         for (r <- 0 until rows) {
             for (c <- 0 until columns) {
                 if (!grid.getCell(r, c).isMine)
-                    grid = grid.setCell(r, c, new Cell(getMineCount(r, c, grid), false, true))
+                    grid = grid.setCell(r, c, CellFactory("hidden", getMineCount(r, c, grid)))
             }
         }
         return grid

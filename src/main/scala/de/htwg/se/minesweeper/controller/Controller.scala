@@ -2,6 +2,7 @@ package de.htwg.se.minesweeper.controller
 
 import de.htwg.se.minesweeper.model._
 import de.htwg.se.minesweeper.model.generator._
+import de.htwg.se.minesweeper.model.cell.CellFactory
 
 class Controller(var generator: IGenerator) extends IController {
 
@@ -12,7 +13,7 @@ class Controller(var generator: IGenerator) extends IController {
             notifyObservers
             return grid            
         }
-        grid = grid.setCell(row, column, cell.setFlag(!cell.isFlagged))
+        grid = grid.setCell(row, column, if cell.isFlagged then CellFactory("hidden", cell.getValue) else CellFactory("flagged", cell.getValue) )
         notifyObservers
         return grid
     }
@@ -24,7 +25,6 @@ class Controller(var generator: IGenerator) extends IController {
     }
 
     def openCellP(row: Int, column: Int): Grid = {
-
         var cell = grid.getCell(row, column)
         if(cell.isFlagged || !cell.isHidden) {
             return grid
@@ -33,11 +33,9 @@ class Controller(var generator: IGenerator) extends IController {
         //     // todo: Notify of losing game and winning game
         // }
 
-        grid = grid.setCell(row, column, cell.setHidden(false))
-
+        grid = grid.setCell(row, column, CellFactory("open", cell.getValue))
         if(cell.getValue != 0)
             return grid
-
         for (d <- Directions.values) {
             var x = d.x+row
             var y = d.y+column
@@ -51,7 +49,7 @@ class Controller(var generator: IGenerator) extends IController {
         for (c <- 0 until grid.getWidth)
             for (r <- 0 until grid.getHeight)
                 var cell = grid.getCell(r, c)
-                grid = grid.setCell(r, c, cell.setHidden(false))
+                grid = grid.setCell(r, c, CellFactory("open", cell.getValue))
         notifyObservers
         return grid
     }
