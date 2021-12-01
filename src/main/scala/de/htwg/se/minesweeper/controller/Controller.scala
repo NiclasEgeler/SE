@@ -30,7 +30,7 @@ class Controller(var generator: IGenerator) extends IController {
             return grid
         }
         // if (cell.isMine == true) {
-        //     // todo: Notify of losing game and winning game
+        //     // TODO: Notify of losing game and winning game
         // }
 
         grid = grid.setCell(row, column, cell.setHidden(false))
@@ -57,7 +57,7 @@ class Controller(var generator: IGenerator) extends IController {
     }
 
     def validateCoordinates(x: Int, y: Int): Boolean = {
-        // todo: Validator?
+        // TODO: Validator?
         return (x >= 0 && y >= 0 && grid.getHeight > y && grid.getWidth > x)
     }
 
