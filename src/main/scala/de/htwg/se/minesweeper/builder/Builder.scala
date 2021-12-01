@@ -14,10 +14,6 @@ trait IBuilder {
 class ControllerBuilder extends IBuilder {
     var diff: IDifficultyProvider = _
     var rand: IRandomProvider = _
-
-//   var generator = new MineGridGenerator(new RandomProvider(),new DifficultyProvider(Difficulty.Easy));
-//   var controller = new Controller(generator)
-//   var tui = new Tui(controller)
     
     def difficulty(name: String): IBuilder = {
         name match {

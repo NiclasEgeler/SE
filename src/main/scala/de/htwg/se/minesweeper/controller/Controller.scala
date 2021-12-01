@@ -48,7 +48,7 @@ class Controller(var generator: IGenerator) extends IController {
     }
 
     def validateCoordinates(x: Int, y: Int): Boolean = {
-        // todo: Validator?
+        // TODO: Validator?
         return (x >= 0 && y >= 0 && grid.getHeight > y && grid.getWidth > x)
     }
 
