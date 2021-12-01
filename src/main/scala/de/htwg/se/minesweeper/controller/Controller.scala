@@ -3,53 +3,46 @@ package de.htwg.se.minesweeper.controller
 import de.htwg.se.minesweeper.model._
 import de.htwg.se.minesweeper.model.generator._
 import de.htwg.se.minesweeper.model.cell.CellFactory
+import de.htwg.se.minesweeper.util._
+import de.htwg.se.minesweeper.controller.commands._
 
 class Controller(var generator: IGenerator) extends IController {
+    val UndoManager = new UndoManager[Grid]
+    var grid        = generator.generate()
 
-    var grid = generator.generate()
     def flagCell(row: Int, column: Int): Grid = {
-        var cell = grid.getCell(row, column)
-        if(!cell.isHidden) {
-            notifyObservers
-            return grid            
+        grid = grid.getCell(row, column).isHidden match {
+            case false => grid
+            case true  => UndoManager.doStep(grid, FlagCommand(row, column))
         }
-        grid = grid.setCell(row, column, if cell.isFlagged then CellFactory("hidden", cell.getValue) else CellFactory("flagged", cell.getValue) )
         notifyObservers
         return grid
     }
 
     def openCell(row: Int, column: Int): Grid = {
-        var ret = openCellP(row, column)
+        var cell = grid.getCell(row, column)
+        if (cell.isFlagged || !cell.isHidden) {
+            return grid
+        }
+        grid = UndoManager.doStep(grid, OpenCommand(row, column))
         notifyObservers
-        return ret        
+        return grid
     }
 
-    def openCellP(row: Int, column: Int): Grid = {
-        var cell = grid.getCell(row, column)
-        if(cell.isFlagged || !cell.isHidden) {
-            return grid
-        }
-        // if (cell.isMine == true) {
-        //     // todo: Notify of losing game and winning game
-        // }
+    def undo(): Grid = {
+        grid = UndoManager.undoStep(grid)
+        notifyObservers
+        return grid
+    }
 
-        grid = grid.setCell(row, column, CellFactory("open", cell.getValue))
-        if(cell.getValue != 0)
-            return grid
-        for (d <- Directions.values) {
-            var x = d.x+row
-            var y = d.y+column
-            if(validateCoordinates(x, y))
-                openCellP(x, y)
-        }
+    def redo(): Grid = {
+        grid = UndoManager.redoStep(grid)
+        notifyObservers
         return grid
     }
 
     def openGrid: Grid = {
-        for (c <- 0 until grid.getWidth)
-            for (r <- 0 until grid.getHeight)
-                var cell = grid.getCell(r, c)
-                grid = grid.setCell(r, c, CellFactory("open", cell.getValue))
+        grid = UndoManager.doStep(grid, OpenGridCommand())
         notifyObservers
         return grid
     }

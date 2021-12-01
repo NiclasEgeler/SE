@@ -26,11 +26,12 @@ class Tui(var controller: IController) extends IObserver {
                     case s"o $x $y"   => controller.openCell(x.toInt - 1, y.toInt - 1)
                     case "open"       => controller.openGrid
                     case s"f $x $y"   => controller.flagCell(x.toInt - 1, y.toInt - 1)
+                    case "u"          => controller.undo()
+                    case "r"          => controller.redo()
                     case _            => println("YIKES DOG")
                 run()
             }
     }
-
     def printCell(cell: ICell): String = {
         if (cell.isFlagged) {
             return "⚑"

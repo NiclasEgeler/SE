@@ -19,7 +19,7 @@ class ControllerSpec extends AnyWordSpec {
         }
 
         "open recursive cells" in {
-            var grid = controller.openCellP(0,8)
+            var grid = controller.openCell(0,8)
             grid.getCell(0,7).isHidden should be(false)
             grid.getCell(0,8).isHidden should be(false)
             grid.getCell(1,7).isHidden should be(false)
