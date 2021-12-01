@@ -5,6 +5,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.minesweeper.model.difficulty._
 import de.htwg.se.minesweeper.model.generator._
 import de.htwg.se.minesweeper.model.random._
+import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model._
 
 class ControllerSpec extends AnyWordSpec {

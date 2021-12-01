@@ -1,19 +1,20 @@
 package de.htwg.se.minesweeper.model
 
-case class Grid(grid: Vector[Vector[Cell]]) {
+import de.htwg.se.minesweeper.model.cell._
+case class Grid(grid: Vector[Vector[ICell]]) {
 
     def this(rows: Int, columns: Int) =
-        this(Vector.tabulate(rows, columns) { (row, col) => new Cell(0) })
+        this(Vector.tabulate(rows, columns) { (row, col) => CellFactory("hidden",0) })
 
-    def setCell(row: Int, col: Int, cell: Cell): Grid = {
+    def setCell(row: Int, col: Int, cell: ICell): Grid = {
         return copy(grid.updated(row, grid(row).updated(col, cell)))
     }
 
-    def getCell(row: Int, col: Int): Cell = {
+    def getCell(row: Int, col: Int): ICell = {
         return grid(row)(col)
     }
 
-    def getRow(row: Int): Vector[Cell] = grid(row)
+    def getRow(row: Int): Vector[ICell] = grid(row)
 
     def getWidth: Int = grid(0).size 
 

@@ -15,7 +15,7 @@ class ControllerSpec extends AnyWordSpec {
         }
 
         "have a medium grid" in {
-            var controller = builder.difficulty("medium").random("random").getResult
+            var controller = builder.difficulty("medium").random("mock").getResult
             controller.getGrid.getWidth should be (16)
             controller.getGrid.getHeight should be (16)
         }

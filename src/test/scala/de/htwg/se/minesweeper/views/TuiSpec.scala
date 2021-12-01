@@ -4,6 +4,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
 import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model.difficulty._
 import de.htwg.se.minesweeper.model.generator._
 import de.htwg.se.minesweeper.model.random._
@@ -69,11 +70,11 @@ class TuiSpec extends AnyWordSpec {
         }
 
         "print cells" in {
-            tui.printCell(new Cell(0,false,true)) should be("?")
-            tui.printCell(new Cell(1,false,false)) should be("1")
-            tui.printCell(new Cell(0,false,false)) should be(" ")
-            tui.printCell(new Cell(0,true,true)) should be("⚑")
-            tui.printCell(new Cell(-1,false,false)) should be("#")
+            tui.printCell(CellFactory("hidden", 0)) should be("?")
+            tui.printCell(CellFactory("open", 1)) should be("1")
+            tui.printCell(CellFactory("open", 0)) should be(" ")
+            tui.printCell(CellFactory("flagged", 0)) should be("⚑")
+            tui.printCell(CellFactory("open", -1)) should be("#")
         }
     }
 }
