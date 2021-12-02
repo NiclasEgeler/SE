@@ -19,19 +19,27 @@ class ControllerSpec extends AnyWordSpec {
         }
 
         "open recursive cells" in {
-            var grid = controller.openCell(0,8)
-            grid.getCell(0,7).isHidden should be(false)
-            grid.getCell(0,8).isHidden should be(false)
-            grid.getCell(1,7).isHidden should be(false)
-            grid.getCell(1,8).isHidden should be(false)
-            grid.getCell(2,7).isHidden should be(false)
-            grid.getCell(2,8).isHidden should be(false)
+            var grid = controller.openCell(0, 8)
+            grid.getCell(0, 7).isHidden should be(false)
+            grid.getCell(0, 8).isHidden should be(false)
+            grid.getCell(1, 7).isHidden should be(false)
+            grid.getCell(1, 8).isHidden should be(false)
+            grid.getCell(2, 7).isHidden should be(false)
+            grid.getCell(2, 8).isHidden should be(false)
         }
 
         "flag cell" in {
             var grid = controller.flagCell(1, 1)
             grid.getCell(1, 1).isFlagged should be(true)
             grid = controller.flagCell(1, 1)
+            grid.getCell(1, 1).isFlagged should be(false)
+            grid = controller.undo()
+            grid.getCell(1, 1).isFlagged should be(true)
+            grid = controller.undo()
+            grid.getCell(1, 1).isFlagged should be(false)
+            grid = controller.redo()
+            grid.getCell(1, 1).isFlagged should be(true)
+            grid = controller.redo()
             grid.getCell(1, 1).isFlagged should be(false)
         }
         "ignore flag when cell is open" in {
@@ -61,12 +69,27 @@ class ControllerSpec extends AnyWordSpec {
 
         "validate coordinates" in {
             var grid = controller.getGrid
-            controller.validateCoordinates(0,0) should be(true)
-            controller.validateCoordinates(-1,0) should be(false)
-            controller.validateCoordinates(0,-1) should be(false)
-            controller.validateCoordinates(9,0) should be(false)
-            controller.validateCoordinates(0,9) should be(false)
+            controller.validateCoordinates(0, 0) should be(true)
+            controller.validateCoordinates(-1, 0) should be(false)
+            controller.validateCoordinates(0, -1) should be(false)
+            controller.validateCoordinates(9, 0) should be(false)
+            controller.validateCoordinates(0, 9) should be(false)
         }
+
+        "undo and redo commands" in {
+            controller = new Controller(generator)
+            var grid = controller.openGrid
+            for (c <- grid)
+                c.isHidden should be(false)
+            grid = controller.undo()
+            for (c <- grid)
+                c.isHidden should be(true)
+            //println(grid)
+            grid = controller.redo()
+            for (c <- grid)
+                c.isHidden should be(false)
+        }
+
     }
 
 }
