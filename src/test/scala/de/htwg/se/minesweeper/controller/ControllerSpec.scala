@@ -14,12 +14,12 @@ class ControllerSpec extends AnyWordSpec {
             new MineGridGenerator(new MockRandomProvider(), new DifficultyProvider(Difficulty.Easy))
         var controller = new Controller(generator)
         "open cell" in {
-            var grid = controller.openCell(0, 0)
+            var grid = controller.openCell(0, 0).get
             grid.getCell(0, 0).isHidden should be(false)
         }
 
         "open recursive cells" in {
-            var grid = controller.openCell(0, 8)
+            var grid = controller.openCell(0, 8).get
             grid.getCell(0, 7).isHidden should be(false)
             grid.getCell(0, 8).isHidden should be(false)
             grid.getCell(1, 7).isHidden should be(false)
@@ -43,9 +43,9 @@ class ControllerSpec extends AnyWordSpec {
         }
 
         "flag cell" in {
-            var grid = controller.flagCell(1, 1)
+            var grid = controller.flagCell(1, 1).get
             grid.getCell(1, 1).isFlagged should be(true)
-            grid = controller.flagCell(1, 1)
+            grid = controller.flagCell(1, 1).get
             grid.getCell(1, 1).isFlagged should be(false)
             grid = controller.undo()
             grid.getCell(1, 1).isFlagged should be(true)
@@ -57,14 +57,14 @@ class ControllerSpec extends AnyWordSpec {
             grid.getCell(1, 1).isFlagged should be(false)
         }
         "ignore flag when cell is open" in {
-            var grid = controller.flagCell(0, 0)
+            var grid = controller.flagCell(0, 0).get
             grid.getCell(0, 0).isFlagged should be(false)
             grid.getCell(0, 0).isHidden should be(false)
         }
 
         "ignore open when cell is flagged" in {
-            var grid = controller.flagCell(1, 1)
-            grid = controller.openCell(1, 1)
+            var grid = controller.flagCell(1, 1).get
+            controller.openCell(1, 1) should be(None)
             grid.getCell(1, 1).isHidden should be(true)
             grid.getCell(1, 1).isFlagged should be(true)
         }
