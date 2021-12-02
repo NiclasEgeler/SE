@@ -23,12 +23,21 @@ class Tui(var controller: IController) extends IObserver {
             case _ => {
                 input match
                     case "h" | "help" => println("HELP")
-                    case s"o $x $y"   => controller.openCell(x.toInt - 1, y.toInt - 1)
-                    case "open"       => controller.openGrid
-                    case s"f $x $y"   => controller.flagCell(x.toInt - 1, y.toInt - 1)
-                    case "u"          => controller.undo()
-                    case "r"          => controller.redo()
-                    case _            => println("YIKES DOG")
+                    case s"o $x $y" =>
+                        controller.openCell(x.toInt - 1, y.toInt - 1) match {
+                            case None       => println("Invalid Operation")
+                            case Some(grid) => println(s"Opened cell ${x} ${y}")
+                        }
+                    case "open" => controller.openGrid
+                    case s"f $x $y" =>
+                        controller.flagCell(x.toInt - 1, y.toInt - 1) match {
+                            case None       => println("Invalid Operation")
+                            case Some(grid) => println(s"Flagged cell ${x} ${y}")
+                        }
+
+                    case "u" => controller.undo()
+                    case "r" => controller.redo()
+                    case _   => println("YIKES DOG")
                 run()
             }
     }

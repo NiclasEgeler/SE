@@ -10,23 +10,27 @@ class Controller(var generator: IGenerator) extends IController {
     val UndoManager = new UndoManager[Grid]
     var grid        = generator.generate()
 
-    def flagCell(row: Int, column: Int): Grid = {
+    def flagCell(row: Int, column: Int): Option[Grid] = {
+        if (!validateCoordinates(row, column))
+            return None
         grid = grid.getCell(row, column).isHidden match {
             case false => grid
             case true  => UndoManager.doStep(grid, FlagCommand(row, column))
         }
         notifyObservers
-        return grid
+        return Some(grid)
     }
 
-    def openCell(row: Int, column: Int): Grid = {
+    def openCell(row: Int, column: Int): Option[Grid] = {
+        if (!validateCoordinates(row, column))
+            return None
         var cell = grid.getCell(row, column)
         if (cell.isFlagged || !cell.isHidden) {
-            return grid
+            return None
         }
         grid = UndoManager.doStep(grid, OpenCommand(row, column))
         notifyObservers
-        return grid
+        return Some(grid)
     }
 
     def undo(): Grid = {
