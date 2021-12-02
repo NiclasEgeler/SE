@@ -26,6 +26,20 @@ class ControllerSpec extends AnyWordSpec {
             grid.getCell(1, 8).isHidden should be(false)
             grid.getCell(2, 7).isHidden should be(false)
             grid.getCell(2, 8).isHidden should be(false)
+            grid = controller.undo()
+            grid.getCell(0, 7).isHidden should be(true)
+            grid.getCell(0, 8).isHidden should be(true)
+            grid.getCell(1, 7).isHidden should be(true)
+            grid.getCell(1, 8).isHidden should be(true)
+            grid.getCell(2, 7).isHidden should be(true)
+            grid.getCell(2, 8).isHidden should be(true)
+            grid = controller.redo()
+            grid.getCell(0, 7).isHidden should be(false)
+            grid.getCell(0, 8).isHidden should be(false)
+            grid.getCell(1, 7).isHidden should be(false)
+            grid.getCell(1, 8).isHidden should be(false)
+            grid.getCell(2, 7).isHidden should be(false)
+            grid.getCell(2, 8).isHidden should be(false)
         }
 
         "flag cell" in {
