@@ -2,22 +2,22 @@ package de.htwg.se.minesweeper.model.generator
 
 import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model._
-import de.htwg.se.minesweeper.model.random.IRandomProvider
-import de.htwg.se.minesweeper.model.difficulty.IDifficultyProvider
-import de.htwg.se.minesweeper.model.difficulty.Difficulty
-import de.htwg.se.minesweeper.model.cell.Cell
+import de.htwg.se.minesweeper.model.grid._
+import de.htwg.se.minesweeper.model.random._
+import de.htwg.se.minesweeper.model.difficulty._
+import de.htwg.se.minesweeper.model.cell._
 
 class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficultyProvider)
     extends IGenerator {
 
-    def generate() : Grid = generate(difficulty.get);
+    def generate() : IGrid = generate(difficulty.get);
 
-    private def generate(difficulty: Difficulty): Grid =
+    private def generate(difficulty: Difficulty): IGrid =
         generate(difficulty.rows, difficulty.columns, difficulty.numMines);
 
-    private def generate(rows: Int, columns: Int, mines: Int): Grid = {
+    private def generate(rows: Int, columns: Int, mines: Int): IGrid = {
         var count = mines;
-        var grid  = new Grid(rows, columns)
+        var grid: IGrid = new Grid(rows, columns)
         while (count > 0) {
             var rowIn    = random.between(0, rows)
             var columnIn = random.between(0, columns)
@@ -35,7 +35,7 @@ class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficulty
         return grid
     }
 
-    private def getMineCount(row: Int, column: Int, grid: Grid): Int = {
+    private def getMineCount(row: Int, column: Int, grid: IGrid): Int = {
         var mineCount = 0
         for (d <- Directions.values)
             if (checkCell(row, column, grid, d))
@@ -43,7 +43,7 @@ class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficulty
         return mineCount
     }
 
-    private def checkCell(row: Int, column: Int, grid: Grid, d: Directions): Boolean = {
+    private def checkCell(row: Int, column: Int, grid: IGrid, d: Directions): Boolean = {
         var x = column + d.x
         var y = row + d.y
         // TODO: Validator?

@@ -1,13 +1,13 @@
-package de.htwg.se.minesweeper.model
+package de.htwg.se.minesweeper.model.grid
 import scala.collection._
 import de.htwg.se.minesweeper.model.cell._
 
-case class Grid(grid: Vector[Vector[ICell]]) extends immutable.Iterable[ICell] {
+case class Grid(grid: Vector[Vector[ICell]]) extends IGrid {
 
     def this(rows: Int, columns: Int) =
         this(Vector.tabulate(rows, columns) { (row, col) => CellFactory("hidden", 0) })
 
-    def setCell(row: Int, col: Int, cell: ICell): Grid = {
+    def setCell(row: Int, col: Int, cell: ICell): IGrid = {
         return copy(grid.updated(row, grid(row).updated(col, cell)))
     }
 

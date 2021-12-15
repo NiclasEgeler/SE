@@ -3,7 +3,7 @@ package de.htwg.se.minesweeper.util
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec.AnyWordSpec
 
-class incrCommand extends Command[Int]:
+class incrCommand extends ICommand[Int]:
     override def doStep(state: Int): Int   = state + 1
     override def undoStep(state: Int): Int = state - 1
     override def redoStep(state: Int): Int = state + 1

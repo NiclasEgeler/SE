@@ -2,12 +2,13 @@ package de.htwg.se.minesweeper.controller.commands
 
 import de.htwg.se.minesweeper.util._
 import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.grid._
 import de.htwg.se.minesweeper.model.cell._
 
-case class OpenGridCommand() extends Command[Grid] {
+case class OpenGridCommand() extends ICommand[IGrid] {
     var steps: List[(Int, Int, ICell)] = List()
 
-    override def doStep(grid: Grid): Grid = {
+    override def doStep(grid: IGrid): IGrid = {
         var newGrid = grid
         for (c <- 0 until grid.getWidth)
             for (r <- 0 until grid.getHeight) {
@@ -20,12 +21,12 @@ case class OpenGridCommand() extends Command[Grid] {
         }
     }
 
-    override def undoStep(grid: Grid): Grid = {
+    override def undoStep(grid: IGrid): IGrid = {
         steps.foldLeft(grid) { (a, b) =>
             a.setCell(b._1, b._2, b._3)
         }
     }
 
-    override def redoStep(grid: Grid): Grid = doStep(grid)
+    override def redoStep(grid: IGrid): IGrid = doStep(grid)
 
 }

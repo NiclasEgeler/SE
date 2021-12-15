@@ -1,12 +1,12 @@
 package de.htwg.se.minesweeper.controller
 import de.htwg.se.minesweeper.util.Observable
-import de.htwg.se.minesweeper.model.Grid
+import de.htwg.se.minesweeper.model.grid._
 
 trait IController extends Observable {
-    def openCell(row: Int, column: Int): Option[Grid]
-    def flagCell(row: Int, column: Int): Option[Grid]
-    def undo(): Grid
-    def redo(): Grid
-    def openGrid: Grid
-    def getGrid: Grid
+    def openCell(row: Int, column: Int): Option[IGrid]
+    def flagCell(row: Int, column: Int): Option[IGrid]
+    def undo(): IGrid
+    def redo(): IGrid
+    def openGrid: IGrid
+    def getGrid: IGrid
 }

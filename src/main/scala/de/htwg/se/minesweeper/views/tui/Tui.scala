@@ -1,6 +1,6 @@
 package de.htwg.se.minesweeper.views.tui
 
-import de.htwg.se.minesweeper.model.Grid;
+import de.htwg.se.minesweeper.model.grid._;
 import de.htwg.se.minesweeper.model.cell._;
 import scala.io.StdIn.readLine
 import scala.util.matching.Regex
@@ -67,7 +67,7 @@ class Tui(var controller: IController) extends IObserver {
 
     def horizontalLine() = "─" * 3
 
-    def verticalLines(grid: Grid, row: Int = 0): String = {
+    def verticalLines(grid: IGrid, row: Int = 0): String = {
         var vLine: String = ""
         for (a <- 0 until grid.getWidth) {
             vLine = vLine + "│ " + printCell(grid.getCell(row, a)) + " "
@@ -83,7 +83,7 @@ class Tui(var controller: IController) extends IObserver {
         axis = axis + eol
         return axis
     }
-    def grid(grid: Grid): String = {
+    def grid(grid: IGrid): String = {
         var width  = grid.getWidth
         var height = grid.getHeight
 
@@ -95,14 +95,14 @@ class Tui(var controller: IController) extends IObserver {
             + bottomBar(width)
     }
 
-    def valueBar(row: Int, width: Int, grid: Grid): String =
+    def valueBar(row: Int, width: Int, grid: IGrid): String =
         if row == 0 then verticalLines(grid, 0) else centerRow(grid, row)
 
     def centerBar(width: Int = 9) =
         centerLeft() + centerCenter() * (width - 1) + centerRight()
     def topBar(width: Int = 9) =
         topLeft() + topCenter() * (width - 1) + topRight()
-    def centerRow(grid: Grid, row: Int) =
+    def centerRow(grid: IGrid, row: Int) =
         centerLeft() + centerCenter() * (grid.getWidth - 1) + centerRight() + verticalLines(
           grid,
           row

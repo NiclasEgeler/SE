@@ -5,11 +5,6 @@ import de.htwg.se.minesweeper.model.difficulty._
 import de.htwg.se.minesweeper.controller._
 import de.htwg.se.minesweeper.model.generator._
 
-trait IBuilder {
-    def difficulty(name: String): IBuilder
-    def random(name: String): IBuilder
-    def getResult: IController
-}
 
 class ControllerBuilder extends IBuilder {
     var diff: IDifficultyProvider = _

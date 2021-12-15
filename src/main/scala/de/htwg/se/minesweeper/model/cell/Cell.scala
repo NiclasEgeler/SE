@@ -8,13 +8,6 @@ object CellFactory {
     }
 }
 
-trait ICell {
-    def isMine: Boolean
-    def getValue: Int
-    def isHidden: Boolean
-    def isFlagged: Boolean
-}
-
 private abstract class Cell(value: Int) extends ICell {
     def isMine: Boolean    = value < 0
     def getValue: Int      = value

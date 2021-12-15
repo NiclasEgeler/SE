@@ -1,15 +1,15 @@
 package de.htwg.se.minesweeper.controller.commands
 import de.htwg.se.minesweeper.util._
 
-import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.grid._
 import de.htwg.se.minesweeper.model.cell._
 
-case class FlagCommand(row: Int, column: Int) extends Command[Grid] {
-    override def doStep(grid: Grid): Grid   = flagCell(grid)
-    override def undoStep(grid: Grid): Grid = flagCell(grid)
-    override def redoStep(grid: Grid): Grid = flagCell(grid)
+case class FlagCommand(row: Int, column: Int) extends ICommand[IGrid] {
+    override def doStep(grid: IGrid): IGrid   = flagCell(grid)
+    override def undoStep(grid: IGrid): IGrid = flagCell(grid)
+    override def redoStep(grid: IGrid): IGrid = flagCell(grid)
 
-    private def flagCell(grid: Grid): Grid = {
+    private def flagCell(grid: IGrid): IGrid = {
         var cell = grid.getCell(row, column)
         return cell.isHidden match {
             case false => grid

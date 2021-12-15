@@ -3,6 +3,7 @@ package de.htwg.se.minesweeper.model
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.grid._
 import de.htwg.se.minesweeper.model.cell._
 
 class GridSpec extends AnyWordSpec {

@@ -1,6 +1,6 @@
 package de.htwg.se.minesweeper.model.generator
-import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.grid._
 
 trait IGenerator {
-    def generate(): Grid;
+    def generate(): IGrid;
 }
