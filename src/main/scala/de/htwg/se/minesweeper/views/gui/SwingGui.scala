@@ -39,7 +39,7 @@ class SwingGui(controller: IController) extends IObserver {
 
     new Frame {
         title = "Minesweeper"
-
+        preferredSize = new Dimension(500,500)
         contents = new BoxPanel(scala.swing.Orientation.Vertical) {
             contents += new GridPanel(0, controller.getGrid.getWidth) {
                 for (b <- lcb) {
