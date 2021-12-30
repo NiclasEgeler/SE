@@ -12,7 +12,7 @@ object Minesweeper {
 
     def main(args: Array[String]) = {
         println("Welcome to Minesweeper")
-        // ask what difficulty and afterwards
+        // how to change module?
         summon[IController].notifyObservers
         tui.run()
     }
