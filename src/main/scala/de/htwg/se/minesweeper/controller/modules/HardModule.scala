@@ -5,7 +5,7 @@ import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.model.generator._
 import de.htwg.se.minesweeper.controller._
 
-object DefaultModule {
+object HardModule {
     given Difficulty = Difficulty.Hard
     given IDifficultyProvider = DifficultyProvider()
     given IRandomProvider = MockRandomProvider()
