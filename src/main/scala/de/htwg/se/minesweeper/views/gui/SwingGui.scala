@@ -11,7 +11,7 @@ import java.util.ArrayList
 import scalafx.scene.shape.StrokeLineCap.Butt
 import javax.swing.BoxLayout
 
-class SwingGui(controller: IController) extends IObserver {
+class SwingGui(using controller: IController) extends IObserver {
     controller.add(this)
     var lcb = List[CellButton]()
 
