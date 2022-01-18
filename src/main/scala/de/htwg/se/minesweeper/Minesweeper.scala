@@ -12,7 +12,6 @@ object Minesweeper {
 
     def main(args: Array[String]) = {
         println("Welcome to Minesweeper")
-        // how to change module?
         summon[IController].notifyObservers
         tui.run()
     }

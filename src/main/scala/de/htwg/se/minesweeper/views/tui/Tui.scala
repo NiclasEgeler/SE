@@ -37,7 +37,9 @@ class Tui(using controller: IController) extends IObserver {
 
                     case "u" => controller.undo()
                     case "r" => controller.redo()
-                    case _   => println("YIKES DOG")
+                    case "s" => controller.save
+                    case "l" => controller.load
+                    case _   => println(s"Invalid operation ${input}!")
                 run()
             }
     }
