@@ -11,7 +11,7 @@ import de.htwg.se.minesweeper.model.generator._
 import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.views.tui._
 import de.htwg.se.minesweeper.controller._
-
+import de.htwg.se.minesweeper.model.fileIO._
 val eol = sys.props("line.separator")
 
 object TestModule {
@@ -19,6 +19,7 @@ object TestModule {
     given Difficulty          = Difficulty.Easy
     given IDifficultyProvider = DifficultyProvider()
     given IGenerator          = MineGridGenerator()
+    given IFileIO = FileIOToXML()
     given IController         = Controller()
 }
 import TestModule.{given}

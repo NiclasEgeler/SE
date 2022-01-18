@@ -7,11 +7,13 @@ import de.htwg.se.minesweeper.model.generator._
 import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.fileIO._
 
 object TestModule {
     given IRandomProvider     = MockRandomProvider()
     given Difficulty          = Difficulty.Easy
     given IDifficultyProvider = DifficultyProvider()
+    given IFileIO = FileIOToXML()
     given IGenerator          = MineGridGenerator()
 }
 
