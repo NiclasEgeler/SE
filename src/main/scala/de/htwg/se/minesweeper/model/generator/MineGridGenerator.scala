@@ -7,7 +7,7 @@ import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.model.difficulty._
 import de.htwg.se.minesweeper.model.cell._
 
-class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficultyProvider)
+class MineGridGenerator(using random: IRandomProvider)(using difficulty: IDifficultyProvider)
     extends IGenerator {
 
     def generate() : IGrid = generate(difficulty.get);

@@ -7,7 +7,7 @@ import de.htwg.se.minesweeper.util._
 import de.htwg.se.minesweeper.controller.commands._
 import de.htwg.se.minesweeper.model.grid._
 
-class Controller(var generator: IGenerator) extends IController {
+class Controller(using generator: IGenerator) extends IController {
     val UndoManager = new UndoManager[IGrid]
     var grid        = generator.generate()
 
