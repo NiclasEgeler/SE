@@ -1,13 +1,13 @@
 package de.htwg.se.minesweeper.model.generator
 
 import de.htwg.se.minesweeper.model.cell._
-import de.htwg.se.minesweeper.model._
 import de.htwg.se.minesweeper.model.grid._
 import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.model.difficulty._
 import de.htwg.se.minesweeper.model.cell._
+import de.htwg.se.minesweeper.model.Directions
 
-class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficultyProvider)
+class MineGridGenerator(using random: IRandomProvider)(using difficulty: IDifficultyProvider)
     extends IGenerator {
 
     def generate() : IGrid = generate(difficulty.get);
@@ -46,7 +46,6 @@ class MineGridGenerator(val random: IRandomProvider, val difficulty: IDifficulty
     private def checkCell(row: Int, column: Int, grid: IGrid, d: Directions): Boolean = {
         var x = column + d.x
         var y = row + d.y
-        // TODO: Validator?
         if (x >= 0 && y >= 0 && grid.getHeight > y && grid.getWidth > x)
             return grid.getCell(y, x).isMine
         return false

@@ -11,15 +11,23 @@ import de.htwg.se.minesweeper.model.generator._
 import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.views.tui._
 import de.htwg.se.minesweeper.controller._
-import de.htwg.se.minesweeper.builder._
-
-
+import de.htwg.se.minesweeper.model.fileIO._
 val eol = sys.props("line.separator")
 
+object TestModule {
+    given IRandomProvider     = MockRandomProvider()
+    given Difficulty          = Difficulty.Easy
+    given IDifficultyProvider = DifficultyProvider()
+    given IGenerator          = MineGridGenerator()
+    given IFileIO = FileIOToXML()
+    given IController         = Controller()
+}
+import TestModule.{given}
+
 class TuiSpec extends AnyWordSpec {
-    var builder = new ControllerBuilder()
-    var controller = builder.difficulty("easy").random("mock").getResult
-    val tui        = new Tui(controller)
+
+    val controller = summon[IController]
+    val tui        = new Tui()
 
     "Tui" should {
         "have a xAxis          1   2   3   4   5   6   7   8   9" in {

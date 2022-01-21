@@ -8,13 +8,17 @@ lazy val root = project
       version      := "0.1.0-SNAPSHOT",
       scalaVersion := scala3Version,
       crossScalaVersions ++= Seq("2.13.5", "3.0.2"),
-      libraryDependencies += "com.novocode"       % "junit-interface" % "0.11"   % "test",
-      libraryDependencies += "org.scalactic"     %% "scalactic"       % "3.2.10",
-      libraryDependencies += "org.scalatest"     %% "scalatest"       % "3.2.10" % "test",
-      libraryDependencies += ("org.scalafx"      %% "scalafx"         % "16.0.0-R25"),
-      libraryDependencies += ("com.google.inject" % "guice"           % "4.2.3"),
-      libraryDependencies += ("net.codingwell" %% "scala-guice" % "5.0.2")
-          .cross(CrossVersion.for3Use2_13),
+      libraryDependencies += "com.novocode"   % "junit-interface" % "0.11"   % "test",
+      libraryDependencies += "org.scalactic" %% "scalactic"       % "3.2.10",
+      libraryDependencies += "org.scalatest" %% "scalatest"       % "3.2.10" % "test",
+      libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
+      libraryDependencies ++= Seq(
+        "io.circe" %% "circe-core",
+        "io.circe" %% "circe-generic",
+        "io.circe" %% "circe-parser"
+      ).map(_ % "0.14.1"),
+      //     libraryDependencies +=("org.json4s" %% "json4s-jackson" % "4.0.3"),
+      // libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.0",
       libraryDependencies += ("org.scala-lang.modules" %% "scala-swing" % "3.0.0")
           .cross(CrossVersion.for3Use2_13),
       libraryDependencies ++= {

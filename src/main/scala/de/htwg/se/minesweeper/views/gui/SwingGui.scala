@@ -8,10 +8,9 @@ import scala.swing._
 import scala.swing.event._
 import scala.swing.Publisher
 import java.util.ArrayList
-import scalafx.scene.shape.StrokeLineCap.Butt
 import javax.swing.BoxLayout
 
-class SwingGui(controller: IController) extends IObserver {
+class SwingGui(using controller: IController) extends IObserver {
     controller.add(this)
     var lcb = List[CellButton]()
 
@@ -59,9 +58,19 @@ class SwingGui(controller: IController) extends IObserver {
                     listenTo(mouse.clicks)
                     reactions += { case MouseClicked(_) => controller.openGrid }
                 }
+                 var save = new Button("Save") {
+                    listenTo(mouse.clicks)
+                    reactions += { case MouseClicked(_) => controller.save }
+                }
+                 var load = new Button("Load") {
+                    listenTo(mouse.clicks)
+                    reactions += { case MouseClicked(_) => controller.load }
+                }
                 contents += undo
                 contents += redo
                 contents += solve
+                contents += save
+                contents += load
             }
         }
         pack()

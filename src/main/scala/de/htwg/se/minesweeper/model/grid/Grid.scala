@@ -2,6 +2,7 @@ package de.htwg.se.minesweeper.model.grid
 import scala.collection._
 import de.htwg.se.minesweeper.model.cell._
 
+
 case class Grid(grid: Vector[Vector[ICell]]) extends IGrid {
 
     def this(rows: Int, columns: Int) =

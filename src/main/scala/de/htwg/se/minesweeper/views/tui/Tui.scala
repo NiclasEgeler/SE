@@ -7,7 +7,7 @@ import scala.util.matching.Regex
 import de.htwg.se.minesweeper.util.IObserver
 import de.htwg.se.minesweeper.controller.IController
 
-class Tui(var controller: IController) extends IObserver {
+class Tui(using controller: IController) extends IObserver {
 
     val eol = sys.props("line.separator")
     controller.add(this)
@@ -37,7 +37,9 @@ class Tui(var controller: IController) extends IObserver {
 
                     case "u" => controller.undo()
                     case "r" => controller.redo()
-                    case _   => println("YIKES DOG")
+                    case "s" => controller.save
+                    case "l" => controller.load
+                    case _   => println(s"Invalid operation ${input}!")
                 run()
             }
     }

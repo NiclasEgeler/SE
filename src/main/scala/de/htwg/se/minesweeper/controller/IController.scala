@@ -7,6 +7,8 @@ trait IController extends Observable {
     def flagCell(row: Int, column: Int): Option[IGrid]
     def undo(): IGrid
     def redo(): IGrid
+    def save: IGrid
+    def load: IGrid
     def openGrid: IGrid
     def getGrid: IGrid
 }

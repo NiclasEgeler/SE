@@ -7,12 +7,23 @@ import de.htwg.se.minesweeper.model.generator._
 import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model._
+import de.htwg.se.minesweeper.model.fileIO._
+
+object TestModule {
+    given IRandomProvider     = MockRandomProvider()
+    given Difficulty          = Difficulty.Easy
+    given IDifficultyProvider = DifficultyProvider()
+    given IFileIO = FileIOToXML()
+    given IGenerator          = MineGridGenerator()
+}
+
+import TestModule.{given}
 
 class ControllerSpec extends AnyWordSpec {
+    
+
     "A Controller" should {
-        var generator =
-            new MineGridGenerator(new MockRandomProvider(), new DifficultyProvider(Difficulty.Easy))
-        var controller = new Controller(generator)
+        var controller = new Controller()
         "open cell" in {
             var grid = controller.openCell(0, 0).get
             grid.getCell(0, 0).isHidden should be(false)
@@ -91,7 +102,7 @@ class ControllerSpec extends AnyWordSpec {
         }
 
         "undo and redo commands" in {
-            controller = new Controller(generator)
+            controller = new Controller()
             var grid = controller.openGrid
             for (c <- grid)
                 c.isHidden should be(false)
