@@ -115,6 +115,20 @@ class ControllerSpec extends AnyWordSpec {
                 c.isHidden should be(false)
         }
 
+        "save and load" in {
+            controller.save
+
+            controller = new Controller()
+            
+            controller.load
+
+            var grid = controller.grid
+
+            grid.getCell(4, 4).isHidden should be(false)
+            grid.getCell(5, 5).isHidden should be(false)
+
+        }
+
     }
 
 }
