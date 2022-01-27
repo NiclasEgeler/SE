@@ -27,6 +27,8 @@ class ControllerSpec extends AnyWordSpec {
         "open cell" in {
             var grid = controller.openCell(0, 0).get
             grid.getCell(0, 0).isHidden should be(false)
+
+            controller.openCell(20,20) should be(None)
         }
 
         "open recursive cells" in {
@@ -66,6 +68,8 @@ class ControllerSpec extends AnyWordSpec {
             grid.getCell(1, 1).isFlagged should be(true)
             grid = controller.redo()
             grid.getCell(1, 1).isFlagged should be(false)
+
+            controller.flagCell(20,20) should be(None)
         }
         "ignore flag when cell is open" in {
             var grid = controller.flagCell(0, 0).get
