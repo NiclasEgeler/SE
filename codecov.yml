@@ -3,3 +3,4 @@ ignore:
   - "src/main/scala/de/htwg/se/minesweeper/Minesweeper.scala"
   - "src/main/scala/de/htwg/se/minesweeper/views/gui/SwingGui.scala"
   - "src/main/scala/de/htwg/se/minesweeper/model/fileIO"
+  - "src/main/scala/de/htwg/se/minesweeper/controller/modules"
