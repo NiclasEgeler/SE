@@ -7,7 +7,7 @@ import de.htwg.se.minesweeper.controller._
 import de.htwg.se.minesweeper.controller.modules.DefaultModule.{given}
 
 object Minesweeper {
-    var gui = new SwingGui()
+    // var gui = new SwingGui()
     var tui = new Tui()
 
     def main(args: Array[String]) = {

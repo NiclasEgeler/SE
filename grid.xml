@@ -3,91 +3,9 @@
         <cell type="open">
              0
         </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell>
-      </row><row>
-        <cell type="open">
-             0
-        </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell>
-      </row><row>
-        <cell type="open">
-             0
-        </cell><cell type="open">
              1
         </cell><cell type="open">
              -1
-        </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell>
-      </row><row>
-        <cell type="open">
-             1
-        </cell><cell type="open">
-             2
-        </cell><cell type="open">
-             2
-        </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
-        </cell>
-      </row><row>
-        <cell type="open">
-             1
-        </cell><cell type="open">
-             -1
-        </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             1
         </cell><cell type="open">
              2
         </cell><cell type="open">
@@ -97,10 +15,78 @@
         </cell><cell type="open">
              0
         </cell><cell type="open">
-             0
+             1
+        </cell><cell type="open">
+             -1
         </cell>
       </row><row>
         <cell type="open">
+             0
+        </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             2
+        </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             2
+        </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             2
+        </cell><cell type="open">
+             1
+        </cell>
+      </row><row>
+        <cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             3
+        </cell><cell type="open">
+             -1
+        </cell><cell type="open">
+             3
+        </cell><cell type="open">
+             1
+        </cell>
+      </row><row>
+        <cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             -1
+        </cell><cell type="open">
+             3
+        </cell><cell type="open">
+             -1
+        </cell><cell type="open">
+             -1
+        </cell><cell type="open">
+             2
+        </cell>
+      </row><row>
+        <cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
              1
         </cell><cell type="open">
              2
@@ -109,51 +95,25 @@
         </cell><cell type="open">
              3
         </cell><cell type="open">
-             -1
-        </cell><cell type="open">
              3
         </cell><cell type="open">
-             2
-        </cell><cell type="open">
-             0
-        </cell><cell type="open">
-             0
+             -1
         </cell>
       </row><row>
         <cell type="open">
              0
         </cell><cell type="open">
-             1
-        </cell><cell type="open">
-             -1
-        </cell><cell type="open">
-             -1
-        </cell><cell type="open">
-             4
-        </cell><cell type="open">
-             -1
-        </cell><cell type="open">
-             1
+             0
         </cell><cell type="open">
              0
         </cell><cell type="open">
              0
-        </cell>
-      </row><row>
-        <cell type="open">
-             0
         </cell><cell type="open">
              1
         </cell><cell type="open">
-             3
-        </cell><cell type="open">
-             4
-        </cell><cell type="open">
              -1
         </cell><cell type="open">
-             2
-        </cell><cell type="open">
-             2
+             1
         </cell><cell type="open">
              1
         </cell><cell type="open">
@@ -165,19 +125,59 @@
         </cell><cell type="open">
              0
         </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
              1
         </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell>
+      </row><row>
+        <cell type="open">
+             1
+        </cell><cell type="open">
+             1
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell>
+      </row><row>
+        <cell type="open">
              -1
         </cell><cell type="open">
-             2
-        </cell><cell type="open">
              1
         </cell><cell type="open">
-             1
+             0
         </cell><cell type="open">
-             -1
+             0
         </cell><cell type="open">
-             1
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
+        </cell><cell type="open">
+             0
         </cell>
       </row>
       </grid>
