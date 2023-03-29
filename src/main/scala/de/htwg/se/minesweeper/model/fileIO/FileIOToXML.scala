@@ -10,9 +10,9 @@ import java.io._
 
 class FileIOToXML extends IFileIO {
     override def load: Option[IGrid] = {
-        var source = XML.loadFile("grid.xml")
+        val source = XML.loadFile("grid.xml")
         // Scala syntax = WayTooDank
-        var result = Vector[Vector[ICell]]() ++ (for (row <- (source \\ "row"))
+        val result = Vector[Vector[ICell]]() ++ (for (row <- (source \\ "row"))
             yield (Vector[ICell]() ++ (for (cell <- (row \\ "cell"))
                 yield CellFactory((cell \ "@type").text, cell.text.trim.toInt))))
         return Some(new Grid(result))

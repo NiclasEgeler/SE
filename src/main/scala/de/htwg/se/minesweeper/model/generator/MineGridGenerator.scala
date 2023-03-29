@@ -6,49 +6,71 @@ import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.model.difficulty._
 import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model.Directions
+import de.htwg.se.minesweeper.controller.commands.FlagCommand
 
 class MineGridGenerator(using random: IRandomProvider)(using difficulty: IDifficultyProvider)
     extends IGenerator {
 
-    def generate() : IGrid = generate(difficulty.get);
+    def generate(): IGrid = generate(difficulty.get);
 
     private def generate(difficulty: Difficulty): IGrid =
         generate(difficulty.rows, difficulty.columns, difficulty.numMines);
 
     private def generate(rows: Int, columns: Int, mines: Int): IGrid = {
-        var count = mines;
-        var grid: IGrid = new Grid(rows, columns)
-        while (count > 0) {
-            var rowIn    = random.between(0, rows)
-            var columnIn = random.between(0, columns)
-            if ((grid.getCell(rowIn, columnIn)).isMine != true) {
-                grid = grid.setCell(rowIn, columnIn, CellFactory("hidden",-1))
-                count -= 1;
-            }
-        }
-        for (r <- 0 until rows) {
-            for (c <- 0 until columns) {
-                if (!grid.getCell(r, c).isMine)
-                    grid = grid.setCell(r, c, CellFactory("hidden", getMineCount(r, c, grid)))
-            }
-        }
-        return grid
+        val mineCount   = mines
+        val grid: IGrid = new Grid(rows, columns)
+
+        val gridWithMines = placeMines(grid, mineCount, rows, columns)
+
+        return (for {
+            r <- 0 until rows
+            c <- 0 until columns
+        } yield {
+            (r, c)
+        }).map((r, c) => {
+            val cell = gridWithMines.getCell(r, c)
+
+            val updatedCell =
+                if (cell.isMine) CellFactory("hidden", -1)
+                else CellFactory("hidden", getMineCount(r, c, gridWithMines))
+
+            (r, c, updatedCell)
+        }).foldLeft(gridWithMines)((accGrid, cellInfo) => {
+            val (r, c, updatedCell) = cellInfo
+            accGrid.setCell(r, c, updatedCell)
+        })
     }
 
-    private def getMineCount(row: Int, column: Int, grid: IGrid): Int = {
-        var mineCount = 0
-        for (d <- Directions.values)
-            if (checkCell(row, column, grid, d))
-                mineCount += 1
-        return mineCount
+    def placeMines(grid: IGrid, count: Int, rows: Int, columns: Int): IGrid = {
+        if (count <= 0) return grid
+
+        val rowIn    = random.between(0, rows)
+        val columnIn = random.between(0, columns)
+
+        if ((grid.getCell(rowIn, columnIn)).isMine) return placeMines(grid, count, rows, columns)
+
+        val newGrid = grid.setCell(rowIn, columnIn, CellFactory("hidden", -1))
+        return placeMines(newGrid, count - 1, rows, columns)
     }
 
-    private def checkCell(row: Int, column: Int, grid: IGrid, d: Directions): Boolean = {
-        var x = column + d.x
-        var y = row + d.y
+    private def getMineCount(row: Int, column: Int, grid: IGrid): Int =
+        Directions.values.count(d => checkCell(d)(row, column, grid))
+
+    private def checkCell(d: Directions)(row: Int, column: Int, grid: IGrid): Boolean = {
+        val x = column + d.x
+        val y = row + d.y
         if (x >= 0 && y >= 0 && grid.getHeight > y && grid.getWidth > x)
             return grid.getCell(y, x).isMine
-        return false
+        false
     }
 
+    // Warum geht _ nicht?
+    private def checkUpwards(row: Int, column: Int, grid: IGrid): Boolean =
+        checkCell(Directions.Up)(row, column, grid)
+    private def checkDownwards(row: Int, column: Int, grid: IGrid): Boolean =
+        checkCell(Directions.Down)(row, column, grid)
+    private def checkLeft(row: Int, column: Int, grid: IGrid): Boolean =
+        checkCell(Directions.Left)(row, column, grid)
+    private def checkRight(row: Int, column: Int, grid: IGrid): Boolean =
+        checkCell(Directions.Right)(row, column, grid)
 }

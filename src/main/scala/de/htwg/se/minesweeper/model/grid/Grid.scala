@@ -2,7 +2,6 @@ package de.htwg.se.minesweeper.model.grid
 import scala.collection._
 import de.htwg.se.minesweeper.model.cell._
 
-
 case class Grid(grid: Vector[Vector[ICell]]) extends IGrid {
 
     def this(rows: Int, columns: Int) =
@@ -17,12 +16,13 @@ case class Grid(grid: Vector[Vector[ICell]]) extends IGrid {
     }
 
     def iterator: Iterator[ICell] = new AbstractIterator[ICell] {
+        //TODO: Change to val somehow?
         private var row = 0
         private var col = 0
 
         def hasNext = row < getHeight
         def next(): ICell = {
-            var cell = getCell(row, col)
+            val cell = getCell(row, col)
             col += 1
             if (col >= getWidth) {
                 col = 0
