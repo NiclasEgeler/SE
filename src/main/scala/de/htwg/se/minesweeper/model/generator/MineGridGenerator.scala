@@ -50,7 +50,7 @@ class MineGridGenerator(using random: IRandomProvider)(using difficulty: IDiffic
         if ((grid.getCell(rowIn, columnIn)).isMine) return placeMines(grid, count, rows, columns)
 
         val newGrid = grid.setCell(rowIn, columnIn, CellFactory("hidden", -1))
-        return placeMines(newGrid, count - 1, rows, columns)
+        placeMines(newGrid, count - 1, rows, columns)
     }
 
     private def getMineCount(row: Int, column: Int, grid: IGrid): Int =
@@ -60,8 +60,9 @@ class MineGridGenerator(using random: IRandomProvider)(using difficulty: IDiffic
         val x = column + d.x
         val y = row + d.y
         if (x >= 0 && y >= 0 && grid.getHeight > y && grid.getWidth > x)
-            return grid.getCell(y, x).isMine
-        false
+            grid.getCell(y, x).isMine
+        else
+            false
     }
 
     // Warum geht _ nicht?

@@ -89,13 +89,29 @@ class Tui(using controller: IController) extends IObserver {
         var width  = grid.getWidth
         var height = grid.getHeight
 
-        return xAxis(width)
+        return 
+            getScore
+            + xAxis(width)
             + topBar(width)
             + (for (i: Int <- 0 until height)
                 yield valueBar(i, width, grid))
                 .foldLeft("") { (b, a) => b + a }
             + bottomBar(width)
     }
+
+    def getScore: String = {
+        "Mines: " + getMineCount + eol +
+            "Flags used: " + getFlagCount + eol
+    }
+
+    def getMineCount: Int = {
+        (for (mine <- controller.getMines) yield mine match {
+            case Some(mine) => 1
+            case None       => 0
+        }).foldLeft(0)((count, value) => count + value)
+    }
+
+    def getFlagCount: Int = controller.getGrid.count(_.isFlagged)
 
     def valueBar(row: Int, width: Int, grid: IGrid): String =
         if row == 0 then verticalLines(grid, 0) else centerRow(grid, row)

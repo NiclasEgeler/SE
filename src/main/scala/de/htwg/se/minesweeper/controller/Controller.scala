@@ -7,6 +7,7 @@ import de.htwg.se.minesweeper.util._
 import de.htwg.se.minesweeper.controller.commands._
 import de.htwg.se.minesweeper.model.grid._
 import de.htwg.se.minesweeper.model.fileIO._
+import de.htwg.se.minesweeper.model.cell.ICell
 
 class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends IController {
     val UndoManager = new UndoManager[IGrid]
@@ -51,7 +52,7 @@ class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends ICo
         var result = fileIO.load
         result match {
             case Some(v: IGrid) => this.grid = v
-            case None           => 
+            case None           =>
         }
         notifyObservers
         return grid;
@@ -71,6 +72,8 @@ class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends ICo
     def validateCoordinates(x: Int, y: Int): Boolean = {
         return (x >= 0 && y >= 0 && grid.getHeight > y && grid.getWidth > x)
     }
+
+    def getMines: List[Option[ICell]] = (for (cell <- grid) yield { if cell.isMine then Some(cell) else None }).toList
 
     def getGrid: IGrid = grid
 }

@@ -16,7 +16,6 @@ case class Grid(grid: Vector[Vector[ICell]]) extends IGrid {
     }
 
     def iterator: Iterator[ICell] = new AbstractIterator[ICell] {
-        //TODO: Change to val somehow?
         private var row = 0
         private var col = 0
 

@@ -19,7 +19,7 @@ object TestModule {
     given Difficulty          = Difficulty.Easy
     given IDifficultyProvider = DifficultyProvider()
     given IGenerator          = MineGridGenerator()
-    given IFileIO = FileIOToXML()
+    given IFileIO             = FileIOToXML()
     given IController         = Controller()
 }
 import TestModule.{given}
@@ -74,7 +74,7 @@ class TuiSpec extends AnyWordSpec {
 
         "have a scaleable grid" in {
             tui.grid(new Grid(2, 2)) should be(
-              "  1   2   " + eol + "╭───┬───╮" + eol + "│ ? │ ? │ 1" + eol + "├───┼───┤" + eol + "│ ? │ ? │ 2" + eol + "╰───┴───╯" + eol
+              "Mines: 10" + eol + "Flags used: 0" + eol + "  1   2   " + eol + "╭───┬───╮" + eol + "│ ? │ ? │ 1" + eol + "├───┼───┤" + eol + "│ ? │ ? │ 2" + eol + "╰───┴───╯" + eol
             )
         }
 

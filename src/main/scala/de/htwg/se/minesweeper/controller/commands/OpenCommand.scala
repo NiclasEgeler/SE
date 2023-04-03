@@ -23,7 +23,7 @@ case class OpenCommand(row: Int, column: Int) extends ICommand[IGrid] {
                 if (!cell.isFlagged && cell.isHidden)
                     steps = OpenCommand(x, y) :: steps
             }
-        } // TODO: Hier higher order functions chainen?
+        }
         return steps.foldLeft(newGrid) { (a, b) => b.doStep(a) }
     }
 
