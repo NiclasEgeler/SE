@@ -1,4 +1,4 @@
-package de.htwg.se.minesweeper.model.generator
+package de.htwg.se.minesweeper.generator
 
 import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model.grid._
@@ -6,7 +6,6 @@ import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.model.difficulty._
 import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model.Directions
-import de.htwg.se.minesweeper.controller.commands.FlagCommand
 
 class MineGridGenerator(using random: IRandomProvider)(using difficulty: IDifficultyProvider)
     extends IGenerator {

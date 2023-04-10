@@ -1,12 +1,12 @@
 package de.htwg.se.minesweeper.controller
 
 import de.htwg.se.minesweeper.model._
-import de.htwg.se.minesweeper.model.generator._
+import de.htwg.se.minesweeper.generator._
 import de.htwg.se.minesweeper.model.cell.CellFactory
 import de.htwg.se.minesweeper.util._
 import de.htwg.se.minesweeper.controller.commands._
 import de.htwg.se.minesweeper.model.grid._
-import de.htwg.se.minesweeper.model.fileIO._
+import de.htwg.se.minesweeper.fileIO._
 import de.htwg.se.minesweeper.model.cell.ICell
 
 class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends IController {

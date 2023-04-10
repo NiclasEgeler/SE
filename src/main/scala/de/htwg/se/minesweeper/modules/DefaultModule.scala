@@ -1,10 +1,10 @@
-package de.htwg.se.minesweeper.controller.modules
+package de.htwg.se.minesweeper.modules
 
 import de.htwg.se.minesweeper.model.difficulty._
 import de.htwg.se.minesweeper.model.random._
-import de.htwg.se.minesweeper.model.generator._
+import de.htwg.se.minesweeper.generator._
 import de.htwg.se.minesweeper.controller._
-import de.htwg.se.minesweeper.model.fileIO._
+import de.htwg.se.minesweeper.fileIO._
 
 object DefaultModule {
     given Difficulty = Difficulty.Easy

@@ -1,4 +1,4 @@
-package de.htwg.se.minesweeper.model.fileIO
+package de.htwg.se.minesweeper.fileIO
 
 import de.htwg.se.minesweeper.model.grid._
 import scala.io.Source
