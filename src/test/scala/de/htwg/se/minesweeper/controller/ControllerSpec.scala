@@ -3,11 +3,11 @@ package de.htwg.se.minesweeper.controller
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.minesweeper.model.difficulty._
-import de.htwg.se.minesweeper.model.generator._
+import de.htwg.se.minesweeper.generator._
 import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model._
-import de.htwg.se.minesweeper.model.fileIO._
+import de.htwg.se.minesweeper.fileIO._
 
 object TestModule {
     given IRandomProvider     = MockRandomProvider()

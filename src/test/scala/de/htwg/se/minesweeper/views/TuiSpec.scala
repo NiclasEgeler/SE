@@ -7,11 +7,11 @@ import de.htwg.se.minesweeper.model._
 import de.htwg.se.minesweeper.model.grid._
 import de.htwg.se.minesweeper.model.cell._
 import de.htwg.se.minesweeper.model.difficulty._
-import de.htwg.se.minesweeper.model.generator._
+import de.htwg.se.minesweeper.generator._
 import de.htwg.se.minesweeper.model.random._
 import de.htwg.se.minesweeper.views.tui._
 import de.htwg.se.minesweeper.controller._
-import de.htwg.se.minesweeper.model.fileIO._
+import de.htwg.se.minesweeper.fileIO._
 val eol = sys.props("line.separator")
 
 object TestModule {
