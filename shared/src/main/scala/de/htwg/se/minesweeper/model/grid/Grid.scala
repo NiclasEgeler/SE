@@ -1,6 +1,10 @@
 package de.htwg.se.minesweeper.model.grid
 import scala.collection._
 import de.htwg.se.minesweeper.model.cell._
+import io.circe._, io.circe.generic.auto._, io.circe.parser._, io.circe.syntax._
+import io.circe.{Decoder, Encoder, HCursor, Json}
+import scala.io.StdIn
+import scala.concurrent.ExecutionContext
 
 case class Grid(grid: Vector[Vector[ICell]]) extends IGrid {
 
@@ -37,4 +41,47 @@ case class Grid(grid: Vector[Vector[ICell]]) extends IGrid {
 
     def getHeight: Int = grid.size
 
+    override def toString: String = grid.asJson.noSpaces
+
+    implicit val encodeGrid: Encoder[IGrid] = new Encoder[IGrid] {
+        final def apply(a: IGrid): Json = Json.obj(
+          ("cells", (for (i <- 0 until a.getHeight) yield a.getRow(i)).asJson)
+        )
+    }
+
+    implicit val decodeGrid: Decoder[IGrid] = new Decoder[IGrid] {
+        final def apply(c: HCursor): Decoder.Result[IGrid] =
+            for {
+                cells <- c.downField("cells").as[Vector[Vector[ICell]]]
+            } yield {
+                new Grid(cells)
+            }
+    }
+
+    implicit val encodeCell: Encoder[ICell] = new Encoder[ICell] {
+        final def apply(a: ICell): Json = Json.obj(
+          ("value", Json.fromInt(a.getValue)),
+          ("type", Json.fromString(cellToClass(a)))
+        )
+    }
+
+    implicit val decodeCell: Decoder[ICell] = new Decoder[ICell] {
+        final def apply(c: HCursor): Decoder.Result[ICell] =
+            for {
+                cellValue <- c.downField("value").as[Int]
+                cellType  <- c.downField("type").as[String]
+            } yield {
+                CellFactory(cellType, cellValue)
+            }
+    }
+
+}
+
+def cellToClass(x: ICell): String = {
+    x match {
+        case HiddenCell(_) => "hidden"
+        case OpenCell(_)   => "open"
+        case FlagCell(_)   => "flagged"
+        case _             => "hidden"
+    }
 }

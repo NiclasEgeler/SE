@@ -22,6 +22,7 @@ class FileIOToJSON extends IFileIO {
         pw.write(grid.asJson.toString)
         pw.close()
     }
+
     implicit val encodeGrid: Encoder[IGrid] = new Encoder[IGrid] {
         final def apply(a: IGrid): Json = Json.obj(
           ("cells", (for (i <- 0 until a.getHeight) yield a.getRow(i)).asJson)

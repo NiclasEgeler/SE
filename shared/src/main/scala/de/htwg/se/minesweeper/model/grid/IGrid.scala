@@ -10,4 +10,5 @@ trait IGrid extends immutable.Iterable[ICell] {
     def getRow(row: Int): Vector[ICell]
     def getWidth: Int
     def getHeight: Int
+    def toString: String
 }

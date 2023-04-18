@@ -34,7 +34,7 @@ lazy val root = project
       version      := "0.1.0-SNAPSHOT",
       scalaVersion := "3.2.2",
       crossScalaVersions ++= Seq("2.13.5", "3.0.2"),
-      libraryDependencies ++= dependencies,
+      libraryDependencies ++= dependencies,      
       javacOptions ++= Seq("-encoding", "UTF-8", "-unchecked", "-deprecation"),
       jacocoReportSettings := JacocoReportSettings(
         "Jacoco Coverage Report",
@@ -53,6 +53,9 @@ lazy val dependencies =
       "org.scalactic"           %% "scalactic"       % "3.2.10",
       "org.scalatest"           %% "scalatest"       % "3.2.10" % "test",
       "org.scala-lang.modules"  %% "scala-xml"       % "2.0.1",
+      "com.typesafe.akka" %% "akka-actor-typed" % "2.8.0",
+      "com.typesafe.akka" %% "akka-http" % "10.5.0",
+      "com.typesafe.akka" %% "akka-stream" % "2.8.0",
       ("org.scala-lang.modules" %% "scala-swing"     % "3.0.0")
           .cross(CrossVersion.for3Use2_13)
     ) ++ Seq(
