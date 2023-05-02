@@ -1,3 +1,5 @@
+ThisBuild / organization := "org.minesweeper"
+
 lazy val shared = (project in file("shared"))
     .settings(
       libraryDependencies ++= dependencies
@@ -31,7 +33,7 @@ lazy val root = project
     .in(file("."))
     .settings(
       name         := "minesweeper",
-      version      := "0.1.0-SNAPSHOT",
+      version      := "0.1.0",
       scalaVersion := "3.2.2",
       crossScalaVersions ++= Seq("2.13.5", "3.0.2"),
       libraryDependencies ++= dependencies,      

@@ -2,11 +2,11 @@ package de.htwg.se.minesweeper.rest
 import de.htwg.se.minesweeper.util.IObserver
 import de.htwg.se.minesweeper.controller.IController
 import scala.concurrent.ExecutionContext
-
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives._
+import scala.io.StdIn
 
 class Rest(using controller: IController) extends IObserver {
 
@@ -44,8 +44,8 @@ class Rest(using controller: IController) extends IObserver {
         }
 
     // `route` will be implicitly converted to an async handler
-    val bindingFuture = Http().newServerAt("localhost", 8080).bind(route)
-    println(s"Server online at http://localhost:8080/\nPress RETURN to stop...")
-
+    val bindingFuture = Http().newServerAt("0.0.0.0", 8080).bind(route)
+    println(s"Rest service online at http://0.0.0.0:8080/\nPress RETURN to stop...")
+    while(true){}
 }
 

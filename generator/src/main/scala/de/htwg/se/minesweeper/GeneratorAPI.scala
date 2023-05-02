@@ -1,4 +1,4 @@
-package de.htwg.se.minesweeper
+package de.htwg.se.minesweeper.generator
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
@@ -7,6 +7,7 @@ import scala.concurrent.ExecutionContext
 import de.htwg.se.minesweeper.generator.IGenerator
 
 class GeneratorAPI(using generator: IGenerator) {
+
     implicit val system: ActorSystem = ActorSystem()
     // needed for the future flatMap/onComplete in the end
     implicit val executionContext: ExecutionContext = system.dispatcher
@@ -21,6 +22,7 @@ class GeneratorAPI(using generator: IGenerator) {
         }
 
     // `route` will be implicitly converted to an async handler
-    // val bindingFuture = Http().newServerAt("localhost", 8080).bind(route)
-    // println(s"Server online at http://localhost:8080/\nPress RETURN to stop...")
+    val bindingFuture = Http().newServerAt("0.0.0.0", 8081).bind(route)
+    println(s"Generator service online at http://0.0.0.0:8081/\nPress RETURN to stop...")
+    while(true){}
 }

@@ -43,6 +43,10 @@ case class Grid(grid: Vector[Vector[ICell]]) extends IGrid {
 
     override def toString: String = grid.asJson.noSpaces
 
+    def fromString(source: String): Option[IGrid] = decode[IGrid](source) match
+        case Right(v: IGrid) => return Some(v)
+        case Left(_)         => return None
+
     implicit val encodeGrid: Encoder[IGrid] = new Encoder[IGrid] {
         final def apply(a: IGrid): Json = Json.obj(
           ("cells", (for (i <- 0 until a.getHeight) yield a.getRow(i)).asJson)

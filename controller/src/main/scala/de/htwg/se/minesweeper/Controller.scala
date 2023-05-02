@@ -8,10 +8,31 @@ import de.htwg.se.minesweeper.controller.commands._
 import de.htwg.se.minesweeper.model.grid._
 import de.htwg.se.minesweeper.fileIO._
 import de.htwg.se.minesweeper.model.cell.ICell
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.client.RequestBuilding.Get
+import akka.http.scaladsl.model._
+import akka.actor.typed.ActorSystem
+import akka.actor.typed.scaladsl.Behaviors
+import scala.concurrent.Future
+import scala.util.{Failure, Success}
+import scala.concurrent.ExecutionContext
 
 class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends IController {
-    val UndoManager = new UndoManager[IGrid]
-    var grid        = generator.generate()
+    val UndoManager                          = new UndoManager[IGrid]
+    implicit val system: ActorSystem[String] = ActorSystem(Behaviors.empty[String], "SingleRequest")
+    implicit val executionContext: ExecutionContext = system.executionContext
+    val responseFuture: Future[HttpResponse] =
+        Http().singleRequest(HttpRequest(uri = "http://0.0.0.0:8081/generate"))
+
+    var grid: IGrid = new Grid(1, 1)
+    responseFuture.onComplete {
+        case Success(res) =>
+            grid.fromString(res.toString) match {
+                case None        => sys.error("error")
+                case Some(value) => grid = value
+            }
+        case Failure(_) => sys.error("something wrong")
+    }
 
     def flagCell(row: Int, column: Int): Option[IGrid] = {
         if (!validateCoordinates(row, column))
@@ -73,7 +94,8 @@ class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends ICo
         return (x >= 0 && y >= 0 && grid.getHeight > y && grid.getWidth > x)
     }
 
-    def getMines: List[Option[ICell]] = (for (cell <- grid) yield { if cell.isMine then Some(cell) else None }).toList
+    def getMines: List[Option[ICell]] =
+        (for (cell <- grid) yield { if cell.isMine then Some(cell) else None }).toList
 
     def getGrid: IGrid = grid
 }

@@ -8,20 +8,13 @@ import de.htwg.se.minesweeper.modules.DefaultModule.{given}
 import de.htwg.se.minesweeper.rest.Rest
 
 object Minesweeper {
-    var gui = SwingGui()
-    var tui = Tui()
-    val restThread = new Thread {
-        override def run(): Unit = {
-            var rest = Rest()
-        }
-    }
-    
+    // var gui = SwingGui()
+    // var tui = Tui()
+    var rest = Rest()
 
     def main(args: Array[String]) = {
         println("Welcome to Minesweeper")
         summon[IController].notifyObservers
-        restThread.start()
-        tui.run()
-        restThread.join()
+        // tui.run()
     }
 }

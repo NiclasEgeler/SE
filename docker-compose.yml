@@ -1,0 +1,15 @@
+version: "3.9"
+name: "minesweeper"
+services:  
+  root:
+    container_name: "root"    
+    image: "root:latest"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - generator
+  generator:
+    container_name: "generator"    
+    image: "generator:latest"
+    ports:
+      - "8081:8081"
