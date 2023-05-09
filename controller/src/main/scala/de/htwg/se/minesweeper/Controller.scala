@@ -18,21 +18,14 @@ import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext
 
 class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends IController {
-    val UndoManager                          = new UndoManager[IGrid]
-    implicit val system: ActorSystem[String] = ActorSystem(Behaviors.empty[String], "SingleRequest")
-    implicit val executionContext: ExecutionContext = system.executionContext
-    val responseFuture: Future[HttpResponse] =
-        Http().singleRequest(HttpRequest(uri = "http://0.0.0.0:8081/generate"))
-
+    val UndoManager = new UndoManager[IGrid]
     var grid: IGrid = new Grid(1, 1)
-    responseFuture.onComplete {
-        case Success(res) =>
-            grid.fromString(res.toString) match {
-                case None        => sys.error("error")
-                case Some(value) => grid = value
-            }
-        case Failure(_) => sys.error("something wrong")
-    }
+    val res: String = scala.io.Source.fromURL("http://0.0.0.0:8081/generate").mkString
+
+    println(res)
+    grid.fromString(res) match
+        case Some(value) => grid = value
+        case None        => grid = generator.generate()
 
     def flagCell(row: Int, column: Int): Option[IGrid] = {
         if (!validateCoordinates(row, column))

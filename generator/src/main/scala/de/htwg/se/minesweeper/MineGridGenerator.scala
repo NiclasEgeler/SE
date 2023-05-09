@@ -18,7 +18,6 @@ class MineGridGenerator(using random: IRandomProvider)(using difficulty: IDiffic
     private def generate(rows: Int, columns: Int, mines: Int): IGrid = {
         val mineCount   = mines
         val grid: IGrid = new Grid(rows, columns)
-
         val gridWithMines = placeMines(grid, mineCount, rows, columns)
 
         return (for {
