@@ -25,13 +25,13 @@ class Tui(using controller: IController) extends IObserver {
                     case "h" | "help" => println("HELP")
                     case s"o $x $y" =>
                         controller.openCell(x.toInt - 1, y.toInt - 1) match {
-                            case None       => println("Invalid Operation")
+                            case None       => println("")
                             case Some(grid) => println(s"Opened cell ${x} ${y}")
                         }
                     case "open" => controller.openGrid
                     case s"f $x $y" =>
                         controller.flagCell(x.toInt - 1, y.toInt - 1) match {
-                            case None       => println("Invalid Operation")
+                            case None       => println("")
                             case Some(grid) => println(s"Flagged cell ${x} ${y}")
                         }
 
@@ -105,10 +105,11 @@ class Tui(using controller: IController) extends IObserver {
     }
 
     def getMineCount: Int = {
-        (for (mine <- controller.getMines) yield mine match {
-            case Some(mine) => 1
-            case None       => 0
-        }).foldLeft(0)((count, value) => count + value)
+        0
+        // (for (mine <- controller.getMines) yield mine match {
+        //     case Some(mine) => 1
+        //     case None       => 0
+        // }).foldLeft(0)((count, value) => count + value)
     }
 
     def getFlagCount: Int = controller.getGrid.count(_.isFlagged)

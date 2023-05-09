@@ -19,13 +19,7 @@ import scala.concurrent.ExecutionContext
 
 class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends IController {
     val UndoManager = new UndoManager[IGrid]
-    var grid: IGrid = new Grid(1, 1)
-    val res: String = scala.io.Source.fromURL("http://0.0.0.0:8081/generate").mkString
-
-    println(res)
-    grid.fromString(res) match
-        case Some(value) => grid = value
-        case None        => grid = generator.generate()
+    var grid: IGrid = generator.generate()
 
     def flagCell(row: Int, column: Int): Option[IGrid] = {
         if (!validateCoordinates(row, column))

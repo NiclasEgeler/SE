@@ -5,16 +5,15 @@ import de.htwg.se.minesweeper.views.gui._
 import de.htwg.se.minesweeper.controller._
 
 import de.htwg.se.minesweeper.modules.DefaultModule.{given}
-import de.htwg.se.minesweeper.rest.Rest
 
 object Minesweeper {
     // var gui = SwingGui()
-    // var tui = Tui()
-    var rest = Rest()
-
+    var tui = Tui()
+    // var rest = Rest()
+    
     def main(args: Array[String]) = {
         println("Welcome to Minesweeper")
         summon[IController].notifyObservers
-        // tui.run()
+        tui.run()
     }
 }

@@ -1,4 +1,5 @@
-package de.htwg.se.minesweeper.rest
+package de.htwg.se.minesweeper.controller
+
 import de.htwg.se.minesweeper.util.IObserver
 import de.htwg.se.minesweeper.controller.IController
 import scala.concurrent.ExecutionContext
@@ -8,7 +9,7 @@ import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives._
 import scala.io.StdIn
 
-class Rest(using controller: IController) extends IObserver {
+class ControllerApi(using controller: IController) extends IObserver {
 
     override def update: Unit = {}
 
@@ -34,8 +35,20 @@ class Rest(using controller: IController) extends IObserver {
               path("redo") {
                   complete(controller.redo().toString)
               },
-              path("solve") {
+              path("openGrid") {
                   complete(controller.openGrid.toString)
+              },
+              path("save") {
+                complete(controller.save.toString)
+              },
+              path("load" / IntNumber){ (id:Int) =>
+                complete(controller.load.toString)
+              },
+              path("getGrid") {
+                complete(controller.getGrid.toString)
+              },
+              path("getMines") {
+                complete(controller.getMines.toString)
               },
               path("") {
                   sys.error("BOOM!")
@@ -48,4 +61,3 @@ class Rest(using controller: IController) extends IObserver {
     println(s"Rest service online at http://0.0.0.0:8080/\nPress RETURN to stop...")
     while(true){}
 }
-

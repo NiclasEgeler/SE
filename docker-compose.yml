@@ -1,28 +1,31 @@
-version: "3.9"
+version: "0.0"
 name: "minesweeper"
 services:
-  # root:
-  #   container_name: "root"
-  #   image: "root:latest"
-  #   ports:
-  #     - "8080:8080"
-  #   depends_on:
-  #     - generator
-  # generator:
-  #   container_name: "generator"
-  #   image: "generator:latest"
-  #   ports:
-  #     - "8081:8081"
+  root:
+    container_name: "controller"
+    image: "controller:latest"
+    ports:
+      - "8080:8080"
+    depends_on:
+      generator:
+        condition: service_healthy
+  generator:
+    container_name: "generator"
+    image: "generator:latest"
+    ports:
+      - "8081:8081"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://0.0.0.0:8081/generate" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   db:
     container_name: db
     image: mysql:latest
-    ports: 3306:3306
-    expose: 3306
+    ports:
+      - 3306:3306
     environment:
       MYSQL_DATABASE: "db"
-      # So you don't have to use root, but you can if you like
       MYSQL_USER: "user"
-      # You can use whatever password you like
       MYSQL_PASSWORD: "password"
-      # Password for root access
       MYSQL_ROOT_PASSWORD: "password"
