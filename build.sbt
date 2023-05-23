@@ -58,6 +58,7 @@ lazy val dependencies =
       "com.typesafe.akka"      %% "akka-stream"      % "2.8.0",
       ("com.typesafe.slick"    %% "slick"            % "3.5.0-M3").cross(CrossVersion.for3Use2_13),
       ("com.typesafe.slick"    %% "slick-hikaricp"   % "3.5.0-M3").cross(CrossVersion.for3Use2_13),
+      ("org.mongodb.scala" %% "mongo-scala-driver" % "4.9.0").cross(CrossVersion.for3Use2_13),
       "mysql"                    % "mysql-connector-java" % "8.0.32",
       ("org.scala-lang.modules" %% "scala-swing"          % "3.0.0")
           .cross(CrossVersion.for3Use2_13)

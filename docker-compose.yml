@@ -29,3 +29,15 @@ services:
       MYSQL_USER: "user"
       MYSQL_PASSWORD: "password"
       MYSQL_ROOT_PASSWORD: "password"
+  mongodb:
+    container_name: "mongodb"
+    image: mongo:latest
+    restart: always
+    ports: 
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: "mongodb"
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+

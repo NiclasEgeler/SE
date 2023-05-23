@@ -9,7 +9,7 @@ given Difficulty          = Difficulty.Easy
 given IDifficultyProvider = DifficultyProvider()
 given IRandomProvider     = RandomProvider()
 given IGenerator          = GeneratorRest()
-given IFileIO             = FileSlick()
+given IFileIO             = MongoDAO()
 given IController         = Controller()
 
 object Minesweeper {

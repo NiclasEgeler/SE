@@ -47,11 +47,10 @@ class FileSlick extends IFileIO {
           val cell = grid.getCell(r, c)
           val insertCell = cellTable += (gridId, r, c, cell.getValue, cellToClass(cell))
           Await.result(database.run(insertCell), waitTime)
-        }        
-        
+        }                
     }
 
-    override def load: Option[IGrid] = ???
+    override def load(id: Int): Option[IGrid] = ???
 
     def cellToClass(x: ICell): String = {
     x match {

@@ -9,7 +9,7 @@ import de.htwg.se.minesweeper.model.cell._
 import java.io._
 
 class FileIOToXML extends IFileIO {
-    override def load: Option[IGrid] = {
+    override def load(id: Int): Option[IGrid] = {
         val source = XML.loadFile("grid.xml")
         // Scala syntax = WayTooDank
         val result = Vector[Vector[ICell]]() ++ (for (row <- (source \\ "row"))

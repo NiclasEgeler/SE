@@ -13,5 +13,5 @@ object DefaultModule {
     given IRandomProvider = RandomProvider()
     given IGenerator = GeneratorRest()
     given IController = ControllerRest()
-    given IFileIO = FileSlick()
+    // given IFileIO = MongoDAO()
 }

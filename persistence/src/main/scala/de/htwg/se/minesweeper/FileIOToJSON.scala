@@ -9,7 +9,7 @@ import java.io._
 
 
 class FileIOToJSON extends IFileIO {
-    override def load: Option[IGrid] = {
+    override def load(id: Int): Option[IGrid] = {
         val source: String = Source.fromFile("grid.json").getLines.mkString
         print(source)
         decode[IGrid](source) match

@@ -39,9 +39,10 @@ class ControllerApi(using controller: IController) extends IObserver {
                   complete(controller.openGrid.toString)
               },
               path("save") {
-                complete(controller.save.toString)
+                controller.save
+                complete("")
               },
-              path("load" / IntNumber){ (id:Int) =>
+              path("load") { 
                 complete(controller.load.toString)
               },
               path("getGrid") {

@@ -31,10 +31,10 @@ class ControllerRest extends IController {
         notifyObservers
         unpack(new Grid(1, 1).fromString(res))
     }
-    def save: IGrid = {
-        var res = scala.io.Source.fromURL(baseUrl + "/save").mkString
-        notifyObservers
-        unpack(new Grid(1, 1).fromString(res))
+    def save = {
+        scala.io.Source.fromURL(baseUrl + "/save")
+        println("save called")
+        notifyObservers        
     }
     def load: IGrid = {
         var res = scala.io.Source.fromURL(baseUrl + "/load").mkString

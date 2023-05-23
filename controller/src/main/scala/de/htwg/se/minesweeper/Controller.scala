@@ -57,7 +57,8 @@ class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends ICo
     }
 
     def load: IGrid = {
-        var result = fileIO.load
+        var result = fileIO.load(1)
+        print(result)
         result match {
             case Some(v: IGrid) => this.grid = v
             case None           =>
@@ -66,9 +67,8 @@ class Controller(using generator: IGenerator)(using fileIO: IFileIO) extends ICo
         return grid;
     }
 
-    def save: IGrid = {
+    def save: Unit = {     
         fileIO.save(grid)
-        return grid;
     }
 
     def openGrid: IGrid = {
