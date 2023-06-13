@@ -8,6 +8,7 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives._
 import scala.io.StdIn
+import de.htwg.se.minesweeper.model.grid.Grid
 
 class ControllerApi(using controller: IController) extends IObserver {
 
@@ -23,11 +24,18 @@ class ControllerApi(using controller: IController) extends IObserver {
               path("state") {
                   complete(controller.getGrid.toString)
               },
-              path("flag" / IntNumber / IntNumber) { (row: Int, col: Int) =>                  
-                  complete(controller.flagCell(row, col).toString)
+              path("flag" / IntNumber / IntNumber) { (row: Int, col: Int) =>
+                  var grid = controller.flagCell(row, col) match
+                      case Some(value) => value
+                      case None => new Grid(1, 1)
+                  complete(grid.toString)
               },
               path("open" / IntNumber / IntNumber) { (row: Int, col: Int) =>
-                  complete(controller.openCell(row, col).toString)
+                  var grid = controller.openCell(row, col) match
+                      case Some(value) => value
+                      case None => new Grid(1, 1)
+                  complete(grid.toString)
+
               },
               path("undo") {
                   complete(controller.undo().toString)
@@ -39,17 +47,17 @@ class ControllerApi(using controller: IController) extends IObserver {
                   complete(controller.openGrid.toString)
               },
               path("save") {
-                controller.save
-                complete("")
+                  controller.save
+                  complete("")
               },
-              path("load") { 
-                complete(controller.load.toString)
+              path("load") {
+                  complete(controller.load.toString)
               },
               path("getGrid") {
-                complete(controller.getGrid.toString)
+                  complete(controller.getGrid.toString)
               },
               path("getMines") {
-                complete(controller.getMines.toString)
+                  complete(controller.getMines.toString)
               },
               path("") {
                   sys.error("BOOM!")
@@ -60,5 +68,5 @@ class ControllerApi(using controller: IController) extends IObserver {
     // `route` will be implicitly converted to an async handler
     val bindingFuture = Http().newServerAt("0.0.0.0", 8080).bind(route)
     println(s"Rest service online at http://0.0.0.0:8080/\nPress RETURN to stop...")
-    while(true){}
+    while (true) {}
 }
