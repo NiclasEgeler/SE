@@ -16,10 +16,12 @@ class ControllerRest extends IController {
     def openCell(row: Int, column: Int): Option[IGrid] = {
         val res = fromUrl(baseUrl + "/open/" + row + "/" + column)
         Await.result(
-          res.map(value => new Grid(1, 1).fromString(value))
-              .recover { case exception =>
-                  println(s"An error occurred: ${exception.getMessage}"); None
-              },
+          res.map(value => {
+              notifyObservers
+              new Grid(1, 1).fromString(value)
+          }).recover { case exception =>
+              println(s"An error occurred: ${exception.getMessage}"); None
+          },
           10.seconds
         )
     }
@@ -27,10 +29,12 @@ class ControllerRest extends IController {
     def flagCell(row: Int, column: Int): Option[IGrid] = {
         val res = fromUrl(baseUrl + "/flag/" + row + "/" + column)
         Await.result(
-          res.map(value => new Grid(1, 1).fromString(value))
-              .recover { case exception =>
-                  println(s"An error occurred: ${exception.getMessage}"); None
-              },
+          res.map(value => {
+              notifyObservers
+              new Grid(1, 1).fromString(value)
+          }).recover { case exception =>
+              println(s"An error occurred: ${exception.getMessage}"); None
+          },
           10.seconds
         )
     }
@@ -38,10 +42,12 @@ class ControllerRest extends IController {
     def undo(): IGrid = {
         val res = fromUrl(baseUrl + "/undo")
         Await.result(
-          res.map(value => unpack(new Grid(1, 1).fromString(value)))
-              .recover { case exception =>
-                  println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
-              },
+          res.map(value => {
+              notifyObservers
+              unpack(new Grid(1, 1).fromString(value))
+          }).recover { case exception =>
+              println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
+          },
           10.seconds
         )
     }
@@ -49,10 +55,12 @@ class ControllerRest extends IController {
     def redo(): IGrid = {
         val res = fromUrl(baseUrl + "/redo")
         Await.result(
-          res.map(value => unpack(new Grid(1, 1).fromString(value)))
-              .recover { case exception =>
-                  println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
-              },
+          res.map(value => {
+              notifyObservers
+              unpack(new Grid(1, 1).fromString(value))
+          }).recover { case exception =>
+              println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
+          },
           10.seconds
         )
     }
@@ -68,10 +76,12 @@ class ControllerRest extends IController {
     def load: IGrid = {
         val res = fromUrl(baseUrl + "/load")
         Await.result(
-          res.map(value => unpack(new Grid(1, 1).fromString(value)))
-              .recover { case exception =>
-                  println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
-              },
+          res.map(value => {
+              notifyObservers
+              unpack(new Grid(1, 1).fromString(value))
+          }).recover { case exception =>
+              println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
+          },
           10.seconds
         )
     }
@@ -79,10 +89,12 @@ class ControllerRest extends IController {
     def openGrid: IGrid = {
         val res = fromUrl(baseUrl + "/openGrid")
         Await.result(
-          res.map(value => unpack(new Grid(1, 1).fromString(value)))
-              .recover { case exception =>
-                  println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
-              },
+          res.map(value => {
+              notifyObservers
+              unpack(new Grid(1, 1).fromString(value))
+          }).recover { case exception =>
+              println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
+          },
           10.seconds
         )
     }
@@ -90,10 +102,11 @@ class ControllerRest extends IController {
     def getGrid: IGrid = {
         val res = fromUrl(baseUrl + "/getGrid")
         Await.result(
-          res.map(value => unpack(new Grid(1, 1).fromString(value)))
-              .recover { case exception =>
-                  println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
-              },
+          res.map(value => {              
+              unpack(new Grid(1, 1).fromString(value))
+          }).recover { case exception =>
+              println(s"An error occurred: ${exception.getMessage}"); new Grid(1, 1)
+          },
           10.seconds
         )
     }

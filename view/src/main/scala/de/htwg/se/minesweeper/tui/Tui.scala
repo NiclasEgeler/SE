@@ -13,6 +13,7 @@ class Tui(using controller: IController) extends IObserver {
     controller.add(this)
 
     override def update: Unit = {
+        print("update called")
         println(grid(controller.getGrid))
     }
 
